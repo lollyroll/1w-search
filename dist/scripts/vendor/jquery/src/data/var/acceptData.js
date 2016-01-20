@@ -1,1 +1,0 @@
-define([],function(){return function(e){return e.nodeType===1||e.nodeType===9||!+e.nodeType}});

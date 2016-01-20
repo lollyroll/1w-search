@@ -1,1 +1,0 @@
-define([],function(){return function(e){var t=e.ownerDocument.defaultView;return t.opener||(t=window),t.getComputedStyle(e)}});

@@ -1,1 +1,0 @@
-define(["../../core"],function(e){return function(t,n,r){var i=[],s=r!==undefined;while((t=t[n])&&t.nodeType!==9)if(t.nodeType===1){if(s&&e(t).is(r))break;i.push(t)}return i}});
