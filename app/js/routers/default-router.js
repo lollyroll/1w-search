@@ -1,23 +1,12 @@
 define(
     [
-        'backbone',
-        'views/search'
+        'app'
     ],
-    function (Backbone, Search) {
+    function (App) {
         return Backbone.Router.extend({
-            routes: {
-                '(/)': 'search'
-            },
             initialize: function() {
-                console.error('init router');
+                console.error('init default router');
                 Backbone.history.start()
-            },
-            search: function () {
-                var search = new Search({
-                    el: $('main')
-                });
-
-                search.render()
             }
         });
     }

@@ -1,12 +1,12 @@
 define(
     'views/search',
     [
-        'backbone',
+        'app',
         'text!../../templates/search.tpl',
-        'collections/default-collection',
-        'views/poll'
+        'views/poll',
+        'collections/polls-collection'
     ],
-    function (Backbone, searchTemplate, defaultCollection, pollView) {
+    function (App, searchTemplate, pollView, pollsCollection) {
         function prepareTpl(tpl) {
             var re = /<tpl[\s\t]+id=\"((?!\")\w+)\"[\s\t]*>(((?!<\/tpl).)*)<\/tpl>/g;
             var templateCollection = {};
@@ -24,7 +24,7 @@ define(
 
         var preparedTemplate = _.template(mySuperTemplate);
 
-        return Backbone.View.extend({
+        return App.View.defaultView.extend({
             el: 'main',
             events: {
                 'click #search-btn': 'search'
@@ -33,7 +33,7 @@ define(
             initialize: function () {
                 var self = this;
 
-                self.myCollection = new defaultCollection();
+                self.myCollection = new pollsCollection();
                 self.myCollection.parent = self;
 
                 self.render();

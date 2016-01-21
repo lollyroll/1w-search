@@ -1,10 +1,10 @@
 define(
     'views/poll',
     [
-        'backbone',
+        'app',
         'text!../../templates/search.tpl'
     ],
-    function (Backbone, searchTemplate) {
+    function (App, searchTemplate) {
         function prepareTpl(tpl) {
             var re = /<tpl[\s\t]+id=\"((?!\")\w+)\"[\s\t]*>(((?!<\/tpl).)*)<\/tpl>/g;
             var templateCollection = {};
@@ -19,7 +19,7 @@ define(
         var templates = prepareTpl(searchTemplate);
         var mySuperTemplate = templates['tplPoll'];
 
-        return Backbone.View.extend({
+        return App.View.defaultView.extend({
             el: '#polls-div',
             initialize: function () {
                 var self = this;
