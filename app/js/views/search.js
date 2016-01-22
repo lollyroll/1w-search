@@ -1,37 +1,17 @@
 define(
     'views/search',
     [
-        'backbone',
+        'app',
         'text!../../templates/search.tpl',
-        'collections/default-collection',
+        'collections/polls-collection',
         'backgrid',
         'views/backgrid-columns-configs'
     ],
-    function (Backbone, searchTemplate, defaultCollection, Backgrid, BackgridColumnsConfig) {
-        function prepareTpl(tpl) {
-            var re = /<tpl[\s\t]+id=\"((?!\")\w+)\"[\s\t]*>(((?!<\/tpl).)*)<\/tpl>/g;
-            var templateCollection = {};
-
-            tpl.replace(/(\r\n|\n|\r)/gm, "").replace(re, function (matchStr, id, template) {
-                templateCollection[id] = template;
-            });
-
-            return templateCollection;
-        }
-
-        var templates = prepareTpl(searchTemplate);
-
-        var tplSearch = templates['tplSearch'];
-        var tplImageCell = templates['tplImageCell'];
-        var tplTaglineCell = templates['tplTaglineCell'];
-        var tplEngagementCell = templates['tplEngagementCell'];
-        var tplButtonCell = templates['tplButtonCell'];
-
-        return Backbone.View.extend({
+    function (App, searchTemplate, pollsCollection, Backgrid, BackgridColumnsConfig) {
+        return App.View.defaultView.extend({
             el: 'main',
             grid: {},
             columnsConfig: [],
-            childs: {},
             events: {
                 'click #search-btn': 'search'
             },
@@ -41,16 +21,11 @@ define(
             initialize: function () {
                 var self = this;
 
-                self.myCollection = new defaultCollection();
+                self.myCollection = new pollsCollection();
                 self.myCollection.parent = self;
 
-                self.childs = {};
-
                 self.initsBackgridColumnsConfig();
-
                 self.render();
-
-                
             },
             renderGrid: function () {
                 var self = this;
@@ -65,7 +40,9 @@ define(
             render: function () {
                 var self = this;
 
-                self.$el.html(_.template(tplSearch));
+                self.templates = self.prepareTpl(searchTemplate);
+
+                self.$el.html(_.template(self.templates['tplSearch']));
             },
             showLoader: function () {
                 $('#loaderDiv').show();
@@ -77,7 +54,7 @@ define(
                 return $.ajax({
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
                     data: {
-                        keywords : $("#search-input").val()
+                        keywords : data.keywords
                     }
                 });
             },
@@ -96,16 +73,10 @@ define(
             },
             constructBackgridConfig: function() {
                 var self = this,
-                    columnsConfig = [],
-                    templates = [tplImageCell, tplTaglineCell, tplEngagementCell, tplButtonCell];
-
-                    console.error(1);
-                    console.log(templates);
+                    columnsConfig = [];
 
                 $.each(self.backgridColumnsProp, function(columnCounter, column) {
-                    
-                    column.cell = self.renderBackgridCell(templates[columnCounter]);
-
+                    column.cell = self.renderBackgridCell(column.template);
                     columnsConfig.push(column);
                 });
 
@@ -117,8 +88,8 @@ define(
                 return Backgrid.Cell.extend({
                     render: function() {
                         var cell = this;
-                        
-                        cell.$el.html(_.template(columnTemplate, {
+
+                        cell.$el.html(_.template(self.templates[columnTemplate], {
                             cellModel: cell.model,
                             cellUi: self.parent
                         }));
@@ -129,14 +100,15 @@ define(
             },
             search: function (e) {
                 var self = this;
+                var currentKeywords = $("#search-input").val();
 
                 self.showLoader();
 
-                $.when(self.getPolls()).then(
+                $.when(self.getPolls({keywords: currentKeywords})).then(
                     function (data) {
                         self.myCollection.reset();
                         self.myCollection.add(data[1]);
-                        console.log('Знайдено:', self.myCollection);
+
                         self.constructBackgridConfig();
                         self.initGrid();
 

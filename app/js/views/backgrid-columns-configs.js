@@ -5,12 +5,12 @@ define(
         var config = {};
 
         config.backgridColumnsProp = [
-            { name: 'image',      label: '', editable: false, sortable: false},
-            { name: 'tagline',    label: 'TAGLINE', editable: false, sortable: false},
-            { name: 'engagement', label: 'ENGAGEMENT', editable: false, sortable: false},
-            { name: 'button',    label: '', editable: false, sortable: false}
+            { name: 'image',      template: 'tplImageCell',      label: '',           editable: false, sortable: false },
+            { name: 'tagline',    template: 'tplTaglineCell',    label: 'TAGLINE',    editable: false, sortable: false },
+            { name: 'engagement', template: 'tplEngagementCell', label: 'ENGAGEMENT', editable: false, sortable: false },
+            { name: 'button',     template: 'tplButtonCell',     label: '',           editable: false, sortable: false }
         ];
 
         return config;
     }
-); 
+);

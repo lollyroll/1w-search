@@ -5,10 +5,10 @@ require(
     function () {
         require(
             [
-                'routers/default-router'
+                'routers/router-ui'
             ],
-            function(BaseRouter) {
-                new BaseRouter();
+            function(RouterUi) {
+                new RouterUi();
             }
         );
     }
