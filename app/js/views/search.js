@@ -3,15 +3,20 @@ define(
     [
         'app',
         'text!../../templates/search.tpl',
-        'views/poll',
-        'collections/polls-collection'
+        'collections/polls-collection',
+        'backgrid',
+        'views/backgrid-columns-configs'
     ],
-    function (App, searchTemplate, pollView, pollsCollection) {
+    function (App, searchTemplate, pollsCollection, Backgrid, BackgridColumnsConfig) {
         return App.View.defaultView.extend({
             el: 'main',
+            grid: {},
+            columnsConfig: [],
             events: {
                 'click #search-btn': 'search'
             },
+            myCollection: {},
+            backgridColumnsProp: [],
             childs: {},
             initialize: function () {
                 var self = this;
@@ -19,13 +24,25 @@ define(
                 self.myCollection = new pollsCollection();
                 self.myCollection.parent = self;
 
+                self.initsBackgridColumnsConfig();
                 self.render();
+            },
+            renderGrid: function () {
+                var self = this;
+
+                if (self.myCollection.length) {
+                    self.$('#polls-div').html(self.grid.render().el);
+                }
+                else {
+                    $('#polls-div').empty();
+                }
             },
             render: function () {
                 var self = this;
-                var templates = self.prepareTpl(searchTemplate);
 
-                self.$el.html(_.template(templates['tplSearch']));
+                self.templates = self.prepareTpl(searchTemplate);
+
+                self.$el.html(_.template(self.templates['tplSearch']));
             },
             showLoader: function () {
                 $('#loaderDiv').show();
@@ -37,46 +54,66 @@ define(
                 return $.ajax({
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
                     data: {
-                        keyword: data.keyword
+                        keywords : data.keywords
                     }
                 });
             },
-            search: function (e) {
+            initsBackgridColumnsConfig: function() {
+                var self = this;
+
+                self.backgridColumnsProp = BackgridColumnsConfig.backgridColumnsProp;
+            },
+            initGrid: function() {
+                var self = this;
+
+                self.grid = new Backgrid.Grid({
+                    columns: self.columnsConfig,
+                    collection: self.myCollection
+                });
+            },
+            constructBackgridConfig: function() {
                 var self = this,
-                    keyword = $(e.currentTarget).val();
+                    columnsConfig = [];
+
+                $.each(self.backgridColumnsProp, function(columnCounter, column) {
+                    column.cell = self.renderBackgridCell(column.template);
+                    columnsConfig.push(column);
+                });
+
+                self.columnsConfig = columnsConfig;
+            },
+            renderBackgridCell: function(columnTemplate) {
+                var self = this;
+
+                return Backgrid.Cell.extend({
+                    render: function() {
+                        var cell = this;
+
+                        cell.$el.html(_.template(self.templates[columnTemplate], {
+                            cellModel: cell.model,
+                            cellUi: self.parent
+                        }));
+
+                        return cell;
+                    }
+                })
+            },
+            search: function (e) {
+                var self = this;
+                var currentKeywords = $("#search-input").val();
 
                 self.showLoader();
 
-                $.when(self.getPolls({keyword: keyword})).then(
+                $.when(self.getPolls({keywords: currentKeywords})).then(
                     function (data) {
+                        self.myCollection.reset();
                         self.myCollection.add(data[1]);
 
-                        console.log('self.myCollection', self.myCollection);
+                        self.constructBackgridConfig();
+                        self.initGrid();
 
-                        var myHtml = '';
-
-                        self.$('#polls-div').empty();
-
-                        self.myCollection.each(function (model, index) {
-                            var viewName = 'view-' + index;
-
-                            self.childs[viewName] = pollView.extend({
-                                name: viewName,
-                                model: model,
-                                parent: self
-                            });
-
-                            var view = new self.childs[viewName]();
-
-                            myHtml += view.render();
-                        });
-
-                        self.$('#polls-div').html(myHtml);
-
+                        self.renderGrid();
                         self.hideLoader();
-                    },
-                    function (dataError) {
-                        console.error('did not find polls');
                     }
                 );
             }

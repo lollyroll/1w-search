@@ -1,8 +1,8 @@
 define(
     [
-        'app'
+        'backbone'
     ],
-    function (App) {
+    function (Backbone) {
         return Backbone.Router.extend({
             initialize: function() {
                 console.error('init default router');
