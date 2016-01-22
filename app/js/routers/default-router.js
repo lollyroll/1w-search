@@ -9,7 +9,6 @@ define(
                 '(/)': 'search'
             },
             initialize: function() {
-                console.error('init router');
                 Backbone.history.start()
             },
             search: function () {

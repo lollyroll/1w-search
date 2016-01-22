@@ -4,9 +4,10 @@ define(
         'backbone',
         'text!../../templates/search.tpl',
         'collections/default-collection',
-        'views/poll'
+        'backgrid',
+        'views/backgrid-columns-configs'
     ],
-    function (Backbone, searchTemplate, defaultCollection, pollView) {
+    function (Backbone, searchTemplate, defaultCollection, Backgrid, BackgridColumnsConfig) {
         function prepareTpl(tpl) {
             var re = /<tpl[\s\t]+id=\"((?!\")\w+)\"[\s\t]*>(((?!<\/tpl).)*)<\/tpl>/g;
             var templateCollection = {};
@@ -20,15 +21,22 @@ define(
 
         var templates = prepareTpl(searchTemplate);
 
-        var mySuperTemplate = templates['tplSearch'];
-
-        var preparedTemplate = _.template(mySuperTemplate);
+        var tplSearch = templates['tplSearch'];
+        var tplImageCell = templates['tplImageCell'];
+        var tplTaglineCell = templates['tplTaglineCell'];
+        var tplEngagementCell = templates['tplEngagementCell'];
+        var tplButtonCell = templates['tplButtonCell'];
 
         return Backbone.View.extend({
             el: 'main',
+            grid: {},
+            columnsConfig: [],
+            childs: {},
             events: {
                 'click #search-btn': 'search'
             },
+            myCollection: {},
+            backgridColumnsProp: [],
             childs: {},
             initialize: function () {
                 var self = this;
@@ -36,12 +44,28 @@ define(
                 self.myCollection = new defaultCollection();
                 self.myCollection.parent = self;
 
+                self.childs = {};
+
+                self.initsBackgridColumnsConfig();
+
                 self.render();
+
+                
+            },
+            renderGrid: function () {
+                var self = this;
+
+                if (self.myCollection.length) {
+                    self.$('#polls-div').html(self.grid.render().el);
+                }
+                else {
+                    $('#polls-div').empty();
+                }
             },
             render: function () {
                 var self = this;
 
-                self.$el.html(preparedTemplate);
+                self.$el.html(_.template(tplSearch));
             },
             showLoader: function () {
                 $('#loaderDiv').show();
@@ -53,46 +77,71 @@ define(
                 return $.ajax({
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
                     data: {
-                        keyword: data.keyword
+                        keywords : $("#search-input").val()
                     }
                 });
             },
-            search: function (e) {
+            initsBackgridColumnsConfig: function() {
+                var self = this;
+
+                self.backgridColumnsProp = BackgridColumnsConfig.backgridColumnsProp;
+            },
+            initGrid: function() {
+                var self = this;
+
+                self.grid = new Backgrid.Grid({
+                    columns: self.columnsConfig,
+                    collection: self.myCollection
+                });
+            },
+            constructBackgridConfig: function() {
                 var self = this,
-                    keyword = $(e.currentTarget).val();
+                    columnsConfig = [],
+                    templates = [tplImageCell, tplTaglineCell, tplEngagementCell, tplButtonCell];
+
+                    console.error(1);
+                    console.log(templates);
+
+                $.each(self.backgridColumnsProp, function(columnCounter, column) {
+                    
+                    column.cell = self.renderBackgridCell(templates[columnCounter]);
+
+                    columnsConfig.push(column);
+                });
+
+                self.columnsConfig = columnsConfig;
+            },
+            renderBackgridCell: function(columnTemplate) {
+                var self = this;
+
+                return Backgrid.Cell.extend({
+                    render: function() {
+                        var cell = this;
+                        
+                        cell.$el.html(_.template(columnTemplate, {
+                            cellModel: cell.model,
+                            cellUi: self.parent
+                        }));
+
+                        return cell;
+                    }
+                })
+            },
+            search: function (e) {
+                var self = this;
 
                 self.showLoader();
 
-                $.when(self.getPolls({keyword: keyword})).then(
+                $.when(self.getPolls()).then(
                     function (data) {
+                        self.myCollection.reset();
                         self.myCollection.add(data[1]);
+                        console.log('Знайдено:', self.myCollection);
+                        self.constructBackgridConfig();
+                        self.initGrid();
 
-                        console.log('self.myCollection', self.myCollection);
-
-                        var myHtml = '';
-
-                        self.$('#polls-div').empty();
-
-                        self.myCollection.each(function (model, index) {
-                            var viewName = 'view-' + index;
-
-                            self.childs[viewName] = pollView.extend({
-                                name: viewName,
-                                model: model,
-                                parent: self
-                            });
-
-                            var view = new self.childs[viewName]();
-
-                            myHtml += view.render();
-                        });
-
-                        self.$('#polls-div').html(myHtml);
-
+                        self.renderGrid();
                         self.hideLoader();
-                    },
-                    function (dataError) {
-                        console.error('did not find polls');
                     }
                 );
             }
