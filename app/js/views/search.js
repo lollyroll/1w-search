@@ -7,23 +7,6 @@ define(
         'collections/polls-collection'
     ],
     function (App, searchTemplate, pollView, pollsCollection) {
-        function prepareTpl(tpl) {
-            var re = /<tpl[\s\t]+id=\"((?!\")\w+)\"[\s\t]*>(((?!<\/tpl).)*)<\/tpl>/g;
-            var templateCollection = {};
-
-            tpl.replace(/(\r\n|\n|\r)/gm, "").replace(re, function (matchStr, id, template) {
-                templateCollection[id] = template;
-            });
-
-            return templateCollection;
-        }
-
-        var templates = prepareTpl(searchTemplate);
-
-        var mySuperTemplate = templates['tplSearch'];
-
-        var preparedTemplate = _.template(mySuperTemplate);
-
         return App.View.defaultView.extend({
             el: 'main',
             events: {
@@ -40,8 +23,9 @@ define(
             },
             render: function () {
                 var self = this;
+                var templates = self.prepareTpl(searchTemplate);
 
-                self.$el.html(preparedTemplate);
+                self.$el.html(_.template(templates['tplSearch']));
             },
             showLoader: function () {
                 $('#loaderDiv').show();
