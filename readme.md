@@ -1,6 +1,6 @@
 #### Run project
 
-1. git clone https://github.com/dosandk/1w-search.git
+1. `git clone https://github.com/dosandk/1w-search.git`
 
 2. `npm i` - This command install all project dependencies 
 
