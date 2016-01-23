@@ -9,11 +9,11 @@ define(
     ],
     function (App, searchTemplate, pollsCollection, Backgrid, BackgridColumnsConfig) {
         return App.View.defaultView.extend({
-            el: 'main',
+            el: '#main',
             grid: {},
             columnsConfig: [],
             events: {
-                'click #search-btn': 'search'
+                'click .js-search': 'search'
             },
             myCollection: {},
             backgridColumnsProp: [],
@@ -31,10 +31,10 @@ define(
                 var self = this;
 
                 if (self.myCollection.length) {
-                    self.$('#polls-div').html(self.grid.render().el);
+                    self.$('#polls-list').html(self.grid.render().el);
                 }
                 else {
-                    $('#polls-div').empty();
+                    $('#polls-list').empty();
                 }
             },
             render: function () {
@@ -45,10 +45,10 @@ define(
                 self.$el.html(_.template(self.templates['tplSearch']));
             },
             showLoader: function () {
-                $('#loaderDiv').show();
+                $('#main-loader').show();
             },
             hideLoader: function () {
-                $('#loaderDiv').hide();
+                $('#main-loader').hide();
             },
             getPolls: function(data) {
                 return $.ajax({

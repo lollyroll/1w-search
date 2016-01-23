@@ -83,21 +83,26 @@ gulp.task('main-css-backgrid-paginator', function() {
 /* install backgrid */
 
 /* START: install bootstrap to project */
-gulp.task('main-bootstrap', ['main-js-bootstrap', 'main-scss-bootstrap', 'main-scss-bootstrap-mixins', 'main-fonts-bootstrap']);
+gulp.task('main-bootstrap', ['main-js-bootstrap', 'main-scss-bootstrap-main', 'main-fonts-bootstrap']);
 
 gulp.task('main-js-bootstrap', function() {
     return gulp.src(mainBowerFiles(['**/bootstrap/*.js', '**/bootstrap.js']))
         .pipe(gulp.dest('./app/js/libs2/bootstrap'));
 });
 
-gulp.task('main-scss-bootstrap', function() {
-    return gulp.src(mainBowerFiles(['**/bootstrap/*.scss', '**/_bootstrap.scss']))
+gulp.task('main-scss-bootstrap-main', ['main-scss-bootstrap'], function() {
+    return gulp.src(mainBowerFiles(['**/_bootstrap.scss']))
         .pipe(gulp.dest('./app/scss/libs/bootstrap'));
+});
+
+gulp.task('main-scss-bootstrap', ['main-scss-bootstrap-mixins'], function() {
+    return gulp.src(mainBowerFiles(['**/bootstrap/*.scss']))
+        .pipe(gulp.dest('./app/scss/libs/bootstrap/bootstrap'));
 });
 
 gulp.task('main-scss-bootstrap-mixins', function() {
     return gulp.src(mainBowerFiles(['**/bootstrap/mixins/*.scss']))
-        .pipe(gulp.dest('./app/scss/libs/bootstrap/mixins'));
+        .pipe(gulp.dest('./app/scss/libs/bootstrap/bootstrap/mixins'));
 });
 
 gulp.task('main-fonts-bootstrap', function() {
