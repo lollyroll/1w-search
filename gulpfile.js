@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var staticServer = require('node-static');
 var mainBowerFiles = require('main-bower-files');
+var compass = require('gulp-compass');
 
 gulp.task('runLocalServer', function() {
     var fileServer = new staticServer.Server('app/');
@@ -10,6 +11,20 @@ gulp.task('runLocalServer', function() {
             fileServer.serve(request, response);
         }).resume();
     }).listen(6040);
+});
+
+gulp.task('compile-scss', function() {
+    return gulp.src('./app/scss/**/*.scss')
+        .pipe(compass({
+            config_file: './config.rb',
+            css: 'app/css',
+            sass: 'app/scss'
+        }))
+        .pipe(gulp.dest('./app/css'));
+});
+
+gulp.task('compass-watch', function() {
+    gulp.watch('app/scss/**/*.scss', ['compile-scss']);
 });
 
 gulp.task('main-js-core', ['main-js-backbone', 'main-js-requirejs', 'main-js-core-requirejs-plugins']);
@@ -68,7 +83,7 @@ gulp.task('main-css-backgrid-paginator', function() {
 /* install backgrid */
 
 /* START: install bootstrap to project */
-gulp.task('main-bootstrap', ['main-js-bootstrap', 'main-scss-bootstrap', 'main-fonts-bootstrap']);
+gulp.task('main-bootstrap', ['main-js-bootstrap', 'main-scss-bootstrap', 'main-scss-bootstrap-mixins', 'main-fonts-bootstrap']);
 
 gulp.task('main-js-bootstrap', function() {
     return gulp.src(mainBowerFiles(['**/bootstrap/*.js', '**/bootstrap.js']))
@@ -78,6 +93,11 @@ gulp.task('main-js-bootstrap', function() {
 gulp.task('main-scss-bootstrap', function() {
     return gulp.src(mainBowerFiles(['**/bootstrap/*.scss', '**/_bootstrap.scss']))
         .pipe(gulp.dest('./app/scss/libs/bootstrap'));
+});
+
+gulp.task('main-scss-bootstrap-mixins', function() {
+    return gulp.src(mainBowerFiles(['**/bootstrap/mixins/*.scss']))
+        .pipe(gulp.dest('./app/scss/libs/bootstrap/mixins'));
 });
 
 gulp.task('main-fonts-bootstrap', function() {

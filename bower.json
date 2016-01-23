@@ -29,7 +29,7 @@
     "overrides": {
         "bootstrap-sass": {
             "main": [
-                "./assets/stylesheets/bootstrap/*.scss",
+                "./assets/stylesheets/bootstrap/**/*.scss",
                 "./assets/stylesheets/_bootstrap.scss",
                 "./assets/fonts/bootstrap/**",
                 "./assets/javascripts/bootstrap/*.js",
