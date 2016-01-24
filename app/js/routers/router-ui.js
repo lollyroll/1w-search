@@ -6,14 +6,23 @@ define(
     function (App, Search) {
         return App.Router.defaultRouter.extend({
             routes: {
-                '(/)': 'search'
+                '(/)': 'search',
+                'demo': 'demo'
             },
             search: function () {
-                var search = new Search({
-                    el: $('main')
+                App.createPage({
+                    templates: ['search'],
+                    css: ['search'],
+                    view: Search,
+                    urlArguments: arguments
                 });
-
-                search.render()
+            },
+            demo: function () {
+                App.createPage({
+                    templates: ['search'],
+                    css: ['demo'],
+                    urlArguments: arguments
+                });
             }
         });
     }
