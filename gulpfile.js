@@ -3,6 +3,53 @@ var staticServer = require('node-static');
 var mainBowerFiles = require('main-bower-files');
 var compass = require('gulp-compass');
 
+var concat = require('gulp-concat');
+var requirejsOptimize = require('gulp-requirejs-optimize');
+
+var rjsConfig = {
+    baseUrl: '/',
+    mainConfigFile: '/app/js/main.js',
+    optimize: 'uglify2',
+    throwWhen: {
+        optimize: true
+    },
+    findNestedDependencies: true,
+    //paths: rjsPaths,
+    //include: ['requireLib'],
+    optimizeAllPluginResources: false,
+    preserveLicenseComments: false
+};
+
+gulp.task('mainMin', function() {
+    //var config = extend({}, rjsConfig);
+
+    //config.name = 'js/main-ui';
+
+    return gulp.src(['./app/js/main.js'])
+
+        .pipe(requirejsOptimize({
+            baseUrl: './app',
+            name: 'js/main',
+            mainConfigFile: 'app/js/requirejs-config.js',
+            //optimize: 'uglify2',
+            optimize: 'none',
+            throwWhen: {
+                optimize: true
+            },
+            findNestedDependencies: true,
+            paths: {
+                requireLib: './js/libs/require-2.1.22',
+                text: './js/libs/requirejs-plugins/text-2.0.12',
+                'requirejs-config': './js/requirejs-config'
+            },
+            include: ['requireLib', 'text'],
+            optimizeAllPluginResources: true,
+            preserveLicenseComments: false
+        }))
+        //.pipe(concat('scripts.min.js'))
+        .pipe(gulp.dest('dist/'));
+});
+
 gulp.task('runLocalServer', function() {
     var fileServer = new staticServer.Server('app/');
 

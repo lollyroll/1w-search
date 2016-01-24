@@ -4,9 +4,12 @@ define(
         'app',
         'collections/polls-collection',
         'backgrid',
-        'views/backgrid-columns-configs'
+        'views/backgrid-columns-configs',
+        'text!../../templates/search.tpl'
     ],
-    function (App, pollsCollection, Backgrid, BackgridColumnsConfig) {
+    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl) {
+        console.log(arguments);
+
         return App.View.defaultView.extend({
             el: '#main',
             grid: {},
@@ -39,7 +42,7 @@ define(
             render: function () {
                 var self = this;
 
-                self.templates = self.prepareTpl(self.rawTemplates);
+                self.templates = self.prepareTpl(tpl);
                 self.$el.html(_.template(self.templates['tplSearch']));
             },
             getPolls: function(data) {

@@ -12,7 +12,7 @@ define(
             },
             search: function () {
                 App.createPage({
-                    templates: ['search'],
+                    //templates: ['search'],
                     css: ['search'],
                     view: Search,
                     urlArguments: arguments
