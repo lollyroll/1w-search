@@ -1,10 +1,10 @@
 define(
     'app',
     [
-        'views/default-view',
-        'collections/default-collection',
-        'models/default-model',
-        'routers/default-router'
+        'js/core/views/default-view',
+        'js/core/collections/default-collection',
+        'js/core/models/default-model',
+        'js/core/routers/default-router'
     ],
     function(defaultView, defaultCollection, defaultModel, defaultRouter) {
         var App = {

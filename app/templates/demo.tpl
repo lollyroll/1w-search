@@ -1,5 +1,5 @@
 <tpl id="tplDemo">
-    <h3>this is Demo tpl</h3>
+    <h3>Demo tpl</h3>
 
     <div id="child1-container">&nbsp;</div>
     <div id="child2-container">&nbsp;</div>

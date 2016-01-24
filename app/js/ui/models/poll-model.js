@@ -1,5 +1,5 @@
 define(
-    'models/poll-model',
+    'js/ui/models/poll-model',
     [
         'app'
     ],

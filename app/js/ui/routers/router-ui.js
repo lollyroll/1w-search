@@ -1,8 +1,8 @@
 define(
     [
         'app',
-        'views/search',
-        'views/demo'
+        'js/ui/views/search',
+        'js/ui/views/demo'
     ],
     function (App, Search, Demo) {
         return App.Router.defaultRouter.extend({

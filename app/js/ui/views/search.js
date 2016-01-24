@@ -1,10 +1,10 @@
 define(
-    'views/search',
+    'js/ui/views/search',
     [
         'app',
-        'collections/polls-collection',
+        'js/ui/collections/polls-collection',
         'backgrid',
-        'views/backgrid-columns-configs'
+        'js/ui/views/backgrid-columns-configs'
     ],
     function (App, pollsCollection, Backgrid, BackgridColumnsConfig) {
         return App.View.defaultView.extend({

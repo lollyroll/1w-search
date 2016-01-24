@@ -1,5 +1,5 @@
 define(
-    'views/backgrid-columns-configs',
+    'js/ui/views/backgrid-columns-configs',
 
     function() {
         var config = {};

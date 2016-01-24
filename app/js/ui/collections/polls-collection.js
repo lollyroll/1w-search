@@ -1,8 +1,8 @@
 define(
-    'collections/polls-collection',
+    'js/ui/collections/polls-collection',
     [
         'app',
-        'models/poll-model'
+        'js/ui/models/poll-model'
     ],
     function (App, pollModel) {
         return App.Collection.defaultCollection.extend({

@@ -1,5 +1,5 @@
 define(
-    'views/demo',
+    'js/ui/views/demo',
     [
         'app'
     ],

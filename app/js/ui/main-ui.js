@@ -1,11 +1,11 @@
 require(
     [
-        'requirejs-config'
+        '../requirejs-config'
     ],
     function () {
         require(
             [
-                'routers/router-ui'
+                'js/ui/routers/router-ui'
             ],
             function(RouterUi) {
                 new RouterUi();
