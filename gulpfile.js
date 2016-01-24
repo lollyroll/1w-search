@@ -4,7 +4,7 @@ var mainBowerFiles = require('main-bower-files');
 var compass = require('gulp-compass');
 
 gulp.task('runLocalServer', function() {
-    var fileServer = new staticServer.Server('app/');
+    var fileServer = new staticServer.Server('./');
 
     require('http').createServer(function (request, response) {
         request.addListener('end', function () {
