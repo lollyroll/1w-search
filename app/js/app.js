@@ -31,13 +31,19 @@ define(
             addCss(cssArr);
 
             getTemplates(templatesArr, function() {
-                var ExtendedView = View.extend({
+                App.createView(View, {
                     urlArguments: urlArguments,
                     rawTemplates: argumentsToArray(arguments).join('')
                 });
-
-                new ExtendedView();
             });
+        };
+
+        App.createView = function(View, options) {
+            var viewExtended = View;
+
+            if (typeof options === 'object') viewExtended = View.extend(options);
+
+            return new viewExtended();
         };
 
         function addCss(cssArr) {

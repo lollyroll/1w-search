@@ -42,12 +42,6 @@ define(
                 self.templates = self.prepareTpl(self.rawTemplates);
                 self.$el.html(_.template(self.templates['tplSearch']));
             },
-            showLoader: function () {
-                $('#main-loader').show();
-            },
-            hideLoader: function () {
-                $('#main-loader').hide();
-            },
             getPolls: function(data) {
                 return $.ajax({
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',

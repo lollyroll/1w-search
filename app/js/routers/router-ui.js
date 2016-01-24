@@ -1,9 +1,10 @@
 define(
     [
         'app',
-        'views/search'
+        'views/search',
+        'views/demo'
     ],
-    function (App, Search) {
+    function (App, Search, Demo) {
         return App.Router.defaultRouter.extend({
             routes: {
                 '(/)': 'search',
@@ -11,7 +12,7 @@ define(
             },
             search: function () {
                 App.createPage({
-                    templates: ['search', 'demo'],
+                    templates: ['search'],
                     css: ['search'],
                     view: Search,
                     urlArguments: arguments
@@ -19,8 +20,9 @@ define(
             },
             demo: function () {
                 App.createPage({
-                    templates: ['search'],
+                    templates: ['demo'],
                     css: ['demo'],
+                    view: Demo,
                     urlArguments: arguments
                 });
             }

@@ -14,6 +14,12 @@ define(
                 });
 
                 return templateCollection;
+            },
+            showLoader: function () {
+                $('#main-loader').removeClass('hide');
+            },
+            hideLoader: function () {
+                $('#main-loader').addClass('hide');
             }
         });
     }
