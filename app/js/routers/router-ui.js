@@ -11,7 +11,7 @@ define(
             },
             search: function () {
                 App.createPage({
-                    templates: ['search'],
+                    templates: ['search', 'demo'],
                     css: ['search'],
                     view: Search,
                     urlArguments: arguments

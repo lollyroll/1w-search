@@ -23,23 +23,41 @@ define(
         };
 
         App.createPage = function(params) {
-            var templatesArr = params.templates || [];
-            var cssArr = params.css || [];
-            var View = params.view || App.View.defaultView;
-            var urlArguments = Array.prototype.slice.apply(params.urlArguments);
+            var urlArguments = params.urlArguments ? argumentsToArray(params.urlArguments) : null,
+                View = params.view || App.View.defaultView,
+                templatesArr = params.templates || [],
+                cssArr = params.css || [];
 
             addCss(cssArr);
 
-            var ExtendedView = View.extend({
-                urlArguments: urlArguments
-            });
+            getTemplates(templatesArr, function() {
+                var ExtendedView = View.extend({
+                    urlArguments: urlArguments,
+                    rawTemplates: argumentsToArray(arguments).join('')
+                });
 
-            new ExtendedView();
+                new ExtendedView();
+            });
         };
 
         function addCss(cssArr) {
             injectCss(cssArr);
             addCssScopes(cssArr);
+        }
+
+        function getTemplates(templatesArr, callback) {
+            if (templatesArr.length) {
+                var preparedTemplates = templatesArr.map(function(element) {
+                    return 'text!templates/' + element + '.tpl';
+                });
+
+                require(preparedTemplates, function() {
+                    if (typeof callback === 'function') callback.apply(this, arguments);
+                });
+            }
+            else {
+                if (typeof callback === 'function') callback();
+            }
         }
 
         function injectCss(cssArr) {
@@ -64,6 +82,10 @@ define(
 
             body.className = '';
             body.className = DEFAULT_CLASS_NAMES + ' ' + cssArr.join(' ');
+        }
+
+        function argumentsToArray(args) {
+            return Array.prototype.slice.call(args);
         }
 
         return App;
