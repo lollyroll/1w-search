@@ -1,19 +1,30 @@
 define(
     [
         'app',
-        'views/search'
+        'views/search',
+        'views/demo'
     ],
-    function (App, Search) {
+    function (App, Search, Demo) {
         return App.Router.defaultRouter.extend({
             routes: {
-                '(/)': 'search'
+                '(/)': 'search',
+                'demo': 'demo'
             },
             search: function () {
-                var search = new Search({
-                    el: $('main')
+                App.createPage({
+                    templates: ['search'],
+                    css: ['search'],
+                    view: Search,
+                    urlArguments: arguments
                 });
-
-                search.render()
+            },
+            demo: function () {
+                App.createPage({
+                    templates: ['demo'],
+                    css: ['demo'],
+                    view: Demo,
+                    urlArguments: arguments
+                });
             }
         });
     }

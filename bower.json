@@ -15,13 +15,26 @@
         "test",
         "tests"
     ],
-    "devDependencies": {
+    "dependencies": {
         "underscore": "1.6.0",
         "requirejs": "~2.1.22",
         "backgrid-filter": "~0.3.5",
         "jquery": "~2.2.0",
         "backgrid": "~0.3.5",
         "text": "https://github.com/requirejs/text.git#~2.0.14",
-        "backbone-amd": "~1.1.0"
+        "backbone-amd": "~1.1.0",
+        "bootstrap-sass": "~3.3.6",
+        "backgrid-paginator": "~0.3.5"
+    },
+    "overrides": {
+        "bootstrap-sass": {
+            "main": [
+                "./assets/stylesheets/bootstrap/**/*.scss",
+                "./assets/stylesheets/_bootstrap.scss",
+                "./assets/fonts/bootstrap/**",
+                "./assets/javascripts/bootstrap/*.js",
+                "./assets/javascripts/bootstrap.js"
+            ]
+        }
     }
 }

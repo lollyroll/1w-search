@@ -1,7 +1,11 @@
 <tpl id="tplSearch">
-	<input type="text" id="search-input" placeholder="Search polls">
-	<button id="search-btn">Search</button>
-	<div id="polls-div"></div>
+    <h1>1WORLD SEARCH</h1>
+
+    <form action="javascript:void(0);">
+        <input type="text" id="search-input" placeholder="Search polls">
+        <input class="js-search" type="submit" value="Search"/>
+    </form>
+	<div id="polls-list">&nbsp;</div>
 </tpl>
 
 <tpl id="tplImageCell">
