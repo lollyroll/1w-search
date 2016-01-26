@@ -12,7 +12,8 @@ define(
             grid: {},
             columnsConfig: [],
             events: {
-                'click .js-search': 'search'
+                'click .js-search': 'search',
+                'click .showPopup': 'popup'
             },
             myCollection: {},
             backgridColumnsProp: [],
@@ -26,6 +27,25 @@ define(
                 self.initsBackgridColumnsConfig();
                 self.render();
             },
+            render: function () {
+                var self = this;
+
+                self.templates = self.prepareTpl(self.rawTemplates);
+                self.$el.html(_.template(self.templates['tplSearch']));
+            },
+            popup: function (e) {
+                var self = this;
+                var currentTarget = $(e.currentTarget);
+                var elements = $('.popupDiv');
+                var viewElement = currentTarget.parent().parent().find('.popupDiv');
+                
+                if($(viewElement).is(':visible')) {
+                    $(viewElement).hide()
+                } else {
+                    elements.hide();
+                    $(viewElement).show()
+                }
+            },
             renderGrid: function () {
                 var self = this;
 
@@ -35,12 +55,8 @@ define(
                 else {
                     $('#polls-list').empty();
                 }
-            },
-            render: function () {
-                var self = this;
 
-                self.templates = self.prepareTpl(self.rawTemplates);
-                self.$el.html(_.template(self.templates['tplSearch']));
+                $('.popupDiv').hide();
             },
             getPolls: function(data) {
                 return $.ajax({

@@ -8,7 +8,8 @@ define(
         return App.Router.defaultRouter.extend({
             routes: {
                 '(/)': 'search',
-                'demo': 'demo'
+                'demo': 'demo',
+                'popup': 'popup'
             },
             search: function () {
                 App.createPage({
