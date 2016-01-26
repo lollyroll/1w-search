@@ -6,7 +6,6 @@ define(
     function(App) {
         return App.Model.defaultModel.extend({
             initialize: function() {
-                console.error('init poll model');
                 var model = this;
                 var time = new Date(model.get('created'));
                 var mon=time.getMonth();

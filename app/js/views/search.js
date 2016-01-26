@@ -116,7 +116,6 @@ define(
                     function (data) {
                         self.myCollection.reset();
                         self.myCollection.add(data[1]);
-                        console.log(self.myCollection);
 
                         self.constructBackgridConfig();
                         self.initGrid();
