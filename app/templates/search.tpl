@@ -29,7 +29,7 @@
     <div class="popupDiv">
         <h5><%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %></h5>
         <%= cellModel.get('categoryName') %>
-        <span class="floating"><%= cellModel.get('published') %><br><br></span>
+        <span class="floating"><%= cellModel.get('newTime') %><br><br></span>
         <% _.each(cellModel.get('sides'), function(sides) { %>
         <label>
             <%= sides.answer %>
