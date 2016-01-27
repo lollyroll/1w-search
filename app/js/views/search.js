@@ -34,14 +34,15 @@ define(
                 self.$el.html(_.template(self.templates['tplSearch']));
             },
             popup: function (e) {
-                var self = this;
-                var currentTarget = $(e.currentTarget);
-                var elements = $('.popupDiv');
-                var viewElement = currentTarget.parent().parent().find('.popupDiv');
+                var self = this,
+                    currentTarget = $(e.currentTarget),
+                    elements = $('.popupDiv'),
+                    viewElement = currentTarget.parent().parent().find('.popupDiv');
                 
-                if($(viewElement).is(':visible')) {
+                if ($(viewElement).is(':visible')) {
                     $(viewElement).hide()
-                } else {
+                }
+                else {
                     elements.hide();
                     $(viewElement).show()
                 }
@@ -106,9 +107,9 @@ define(
                     }
                 })
             },
-            search: function (e) {
-                var self = this;
-                var currentKeywords = $("#search-input").val();
+            search: function () {
+                var self = this,
+                    currentKeywords = $("#search-input").val();
 
                 self.showLoader();
 
