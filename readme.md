@@ -1,3 +1,6 @@
+## 1W-Search
+
+[![Build Status](https://travis-ci.org/dosandk/1w-search.svg?branch=master)](https://travis-ci.org/dosandk/1w-search)
 #### Run project
 
 1. `git clone https://github.com/dosandk/1w-search.git` - Clone project
