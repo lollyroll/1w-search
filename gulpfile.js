@@ -5,6 +5,11 @@ var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var requirejsOptimize = require('gulp-requirejs-optimize');
 
+
+gulp.task('default', function() {
+    console.error('default task');
+});
+
 gulp.task('runLocalServer', function() {
     var fileServer = new staticServer.Server('app/');
 
