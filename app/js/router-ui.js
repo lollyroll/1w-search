@@ -1,4 +1,5 @@
 define(
+    'router-ui',
     [
         'app',
         'views/search',
@@ -13,7 +14,7 @@ define(
             },
             search: function () {
                 App.createPage({
-                    templates: ['search'],
+                    //templates: ['search'],
                     css: ['search'],
                     view: Search,
                     urlArguments: arguments
@@ -21,7 +22,7 @@ define(
             },
             demo: function () {
                 App.createPage({
-                    templates: ['demo'],
+                    //templates: ['demo'],
                     css: ['demo'],
                     view: Demo,
                     urlArguments: arguments

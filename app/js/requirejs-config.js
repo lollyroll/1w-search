@@ -1,11 +1,12 @@
 require.config({
-    baseUrl: '/',
+    baseUrl: './',
     paths: {
         collections: 'js/collections',
         models: 'js/models',
         views: 'js/views',
         routers: 'js/routers',
         app: 'js/app',
+        'router-ui': 'js/router-ui',
 
         jquery: 'js/libs/jquery-2.2.0',
         underscore: 'js/libs/underscore-1.6.0',

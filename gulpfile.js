@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var staticServer = require('node-static');
 var mainBowerFiles = require('main-bower-files');
 var compass = require('gulp-compass');
+var concat = require('gulp-concat');
+var requirejsOptimize = require('gulp-requirejs-optimize');
 
 gulp.task('runLocalServer', function() {
     var fileServer = new staticServer.Server('app/');
@@ -11,6 +13,30 @@ gulp.task('runLocalServer', function() {
             fileServer.serve(request, response);
         }).resume();
     }).listen(6040);
+});
+
+gulp.task('build-min-js', function() {
+    return gulp.src(['./app/js/main.js'])
+
+        .pipe(requirejsOptimize({
+            baseUrl: './app',
+            name: 'js/main',
+            mainConfigFile: './app/js/main.js',
+            //optimize: 'uglify2',
+            optimize: 'none',
+            throwWhen: {
+                optimize: true
+            },
+            findNestedDependencies: true,
+            paths: {
+                requireLib: './js/libs/require-2.1.22'
+            },
+            include: ['requireLib', 'text'],
+            optimizeAllPluginResources: true,
+            preserveLicenseComments: false
+        }))
+        .pipe(concat('scripts.min.js'))
+        .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('compile-scss', function() {
