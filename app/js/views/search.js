@@ -35,17 +35,16 @@ define(
                 self.$el.html(_.template(self.templates['tplSearch']));
             },
             popup: function (e) {
-                var self = this,
-                    currentTarget = $(e.currentTarget),
+                var currentTarget = $(e.currentTarget),
                     elements = $('.popupDiv'),
                     viewElement = currentTarget.parent().parent().find('.popupDiv');
                 
                 if ($(viewElement).is(':visible')) {
-                    $(viewElement).hide()
+                    $(viewElement).hide();
                 }
                 else {
                     elements.hide();
-                    $(viewElement).show()
+                    $(viewElement).show();
                 }
             },
             renderGrid: function () {
@@ -106,13 +105,12 @@ define(
 
                         return cell;
                     }
-                })
+                });
             },
             search: function () {
                 var self = this,
                     currentKeywords = $('#search-input').val();
 
-                console.log(1);
                 self.showLoader();
 
                 $.when(self.getPolls({keywords: currentKeywords})).then(
