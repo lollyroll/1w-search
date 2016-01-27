@@ -110,8 +110,9 @@ define(
             },
             search: function () {
                 var self = this,
-                    currentKeywords = $("#search-input").val();
+                    currentKeywords = $('#search-input').val();
 
+                console.log(1);
                 self.showLoader();
 
                 $.when(self.getPolls({keywords: currentKeywords})).then(

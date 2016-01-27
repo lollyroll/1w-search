@@ -9,7 +9,7 @@ define(
                 var re = /<tpl[\s\t]+id=\"((?!\")\w+)\"[\s\t]*>(((?!<\/tpl).)*)<\/tpl>/g,
                     templateCollection = {};
 
-                tpl.replace(/(\r\n|\n|\r)/gm, "").replace(re, function (matchStr, id, template) {
+                tpl.replace(/(\r\n|\n|\r)/gm, '').replace(re, function (matchStr, id, template) {
                     templateCollection[id] = template;
                 });
 

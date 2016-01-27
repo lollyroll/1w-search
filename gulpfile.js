@@ -11,7 +11,7 @@ gulp.task('default', ['lint'], function() {
 });
 
 gulp.task('lint', function () {
-    return gulp.src(['app/js/**/*.js'])
+    return gulp.src(['app/js/views/**/*.js'])
         // eslint() attaches the lint output to the eslint property
         // of the file object so it can be used by other modules.
         .pipe(eslint())
