@@ -2,6 +2,13 @@
     <h1>1WORLD SEARCH</h1>
 
     <form action="javascript:void(0);">
+        
+        <div value="Test">
+            <select id="select-language" class="textfield" >
+                
+            </select>
+        </div>
+
         <input type="text" id="search-input" placeholder="Search polls">
         <input class="js-search" type="submit" value="Search"/>
     </form>

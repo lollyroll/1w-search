@@ -5,20 +5,23 @@ define(
         'collections/polls-collection',
         'backgrid',
         'views/backgrid-columns-configs',
-        'text!templates/search.tpl'
+        'text!templates/search.tpl',
+        'js/helpers/locales'
     ],
-    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl) {
+    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages) {
         return App.View.defaultView.extend({
             el: '#main',
             grid: {},
             columnsConfig: [],
             events: {
                 'click .js-search': 'search',
-                'click .showPopup': 'popup'
+                'click .showPopup': 'popup',
+                'change #select-language': 'changeLocale'
             },
             myCollection: {},
             backgridColumnsProp: [],
             childs: {},
+            locale: 'en',
             initialize: function () {
                 var self = this;
 
@@ -31,8 +34,30 @@ define(
             render: function () {
                 var self = this;
 
+                console.log('keep this console');
+
                 self.templates = self.prepareTpl(tpl);
                 self.$el.html(_.template(self.templates['tplSearch']));
+
+                self.showSelectLocale();
+            },
+            showSelectLocale: function() {
+                var self = this;
+                var localesDropdown = self.$('#select-language');
+                var $select = $('select');
+
+                $.each(Languages, function(count, locale){
+                    $select.append($('<option>').val(count).text(locale.name));
+                });
+
+                localesDropdown.find('option[value=' + self.locale + ']').attr("selected", true);
+            },
+            changeLocale: function(e) {
+                var self = this;
+
+                self.locale = $(e.currentTarget).val();
+
+                self.search();
             },
             popup: function (e) {
                 var currentTarget = $(e.currentTarget),
@@ -60,9 +85,14 @@ define(
                 $('.popupDiv').hide();
             },
             getPolls: function(data) {
+                var self = this;
+                var locale = self.locale;
+
                 return $.ajax({
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
+                    method: 'post',
                     data: {
+                        locale: locale,
                         keywords : data.keywords
                     }
                 });
