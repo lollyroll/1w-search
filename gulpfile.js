@@ -2,6 +2,26 @@ var gulp = require('gulp');
 var staticServer = require('node-static');
 var mainBowerFiles = require('main-bower-files');
 var compass = require('gulp-compass');
+var concat = require('gulp-concat');
+var requirejsOptimize = require('gulp-requirejs-optimize');
+var eslint = require('gulp-eslint');
+
+gulp.task('default', ['lint'], function() {
+    console.error('default task');
+});
+
+gulp.task('lint', function () {
+    return gulp.src(['app/js/views/**/*.js'])
+        // eslint() attaches the lint output to the eslint property
+        // of the file object so it can be used by other modules.
+        .pipe(eslint())
+        // eslint.format() outputs the lint results to the console.
+        // Alternatively use eslint.formatEach() (see Docs).
+        .pipe(eslint.format())
+        // To have the process exit with an error code (1) on
+        // lint error, return the stream and pipe to failOnError last.
+        .pipe(eslint.failOnError());
+});
 
 gulp.task('runLocalServer', function() {
     var fileServer = new staticServer.Server('app/');
@@ -11,6 +31,30 @@ gulp.task('runLocalServer', function() {
             fileServer.serve(request, response);
         }).resume();
     }).listen(6040);
+});
+
+gulp.task('build-min-js', function() {
+    return gulp.src(['./app/js/main.js'])
+
+        .pipe(requirejsOptimize({
+            baseUrl: './app',
+            name: 'js/main',
+            mainConfigFile: './app/js/main.js',
+            //optimize: 'uglify2',
+            optimize: 'none',
+            throwWhen: {
+                optimize: true
+            },
+            findNestedDependencies: true,
+            paths: {
+                requireLib: './js/libs/require-2.1.22'
+            },
+            include: ['requireLib', 'text'],
+            optimizeAllPluginResources: true,
+            preserveLicenseComments: false
+        }))
+        .pipe(concat('scripts.min.js'))
+        .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('compile-scss', function() {

@@ -4,9 +4,10 @@ define(
         'app',
         'collections/polls-collection',
         'backgrid',
-        'views/backgrid-columns-configs'
+        'views/backgrid-columns-configs',
+        'text!templates/search.tpl'
     ],
-    function (App, pollsCollection, Backgrid, BackgridColumnsConfig) {
+    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl) {
         return App.View.defaultView.extend({
             el: '#main',
             grid: {},
@@ -30,20 +31,20 @@ define(
             render: function () {
                 var self = this;
 
-                self.templates = self.prepareTpl(self.rawTemplates);
+                self.templates = self.prepareTpl(tpl);
                 self.$el.html(_.template(self.templates['tplSearch']));
             },
             popup: function (e) {
-                var self = this;
-                var currentTarget = $(e.currentTarget);
-                var elements = $('.popupDiv');
-                var viewElement = currentTarget.parent().parent().find('.popupDiv');
+                var currentTarget = $(e.currentTarget),
+                    elements = $('.popupDiv'),
+                    viewElement = currentTarget.parent().parent().find('.popupDiv');
                 
-                if($(viewElement).is(':visible')) {
-                    $(viewElement).hide()
-                } else {
+                if ($(viewElement).is(':visible')) {
+                    $(viewElement).hide();
+                }
+                else {
                     elements.hide();
-                    $(viewElement).show()
+                    $(viewElement).show();
                 }
             },
             renderGrid: function () {
@@ -104,11 +105,11 @@ define(
 
                         return cell;
                     }
-                })
+                });
             },
-            search: function (e) {
-                var self = this;
-                var currentKeywords = $("#search-input").val();
+            search: function () {
+                var self = this,
+                    currentKeywords = $('#search-input').val();
 
                 self.showLoader();
 

@@ -1,9 +1,10 @@
 define(
     'views/demo',
     [
-        'app'
+        'app',
+        'text!templates/demo.tpl'
     ],
-    function (App) {
+    function (App, tpl) {
         var DemoView = App.View.defaultView.extend({
             el: '#main',
             template: 'tplDemo',
@@ -29,7 +30,7 @@ define(
             render: function () {
                 var self = this;
 
-                self.templates = self.prepareTpl(self.rawTemplates);
+                self.templates = self.prepareTpl(tpl);
                 self.$el.html(_.template(self.templates[self.template]));
             }
         });
