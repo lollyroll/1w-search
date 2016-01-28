@@ -34,8 +34,6 @@ define(
             render: function () {
                 var self = this;
 
-                console.log('keep this console');
-
                 self.templates = self.prepareTpl(tpl);
                 self.$el.html(_.template(self.templates['tplSearch']));
 
