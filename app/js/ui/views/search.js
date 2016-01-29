@@ -93,6 +93,7 @@ define(
                     method: 'post',
                     data: {
                         minVotes: 1000,
+                        sortCriteria: 'mostVoted',
                         locale: locale,
                         keywords : data.keywords
                     }
