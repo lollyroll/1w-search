@@ -92,6 +92,7 @@ define(
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
                     method: 'post',
                     data: {
+                        minVotes: 1000,
                         locale: locale,
                         keywords : data.keywords
                     }
