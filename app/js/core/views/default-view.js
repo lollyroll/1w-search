@@ -1,5 +1,5 @@
 define(
-    'views/default-view',
+    'core/views/default-view',
     [
         'backbone'
     ],

@@ -1,5 +1,5 @@
 define(
-    'js/helpers/localization',
+    'ui/helpers/localization',
     function() {
         var helper = {};
 

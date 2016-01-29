@@ -1,7 +1,7 @@
 define(
-    'js/helpers/format-poll-date',
+    'ui/helpers/format-poll-date',
     [
-        'js/helpers/localization'
+        'ui/helpers/localization'
     ],
     function(Localization) {
         return function(date) {

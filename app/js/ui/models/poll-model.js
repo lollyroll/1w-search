@@ -1,8 +1,8 @@
 define(
-    'models/poll-model',
+    'ui/models/poll-model',
     [
         'app',
-        'js/helpers/format-poll-date'
+        'ui/helpers/format-poll-date'
     ],
     function(App, FormatPollDate) {
         return App.Model.defaultModel.extend({

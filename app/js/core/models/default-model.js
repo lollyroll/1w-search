@@ -1,5 +1,5 @@
 define(
-    'models/default-model',
+    'core/models/default-model',
     [
 		'backbone'
     ],

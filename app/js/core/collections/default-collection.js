@@ -1,8 +1,8 @@
 define(
-    'collections/default-collection',
+    'core/collections/default-collection',
     [
         'backbone',
-        'models/default-model'
+        'core/models/default-model'
     ],
     function (Backbone, defaultModel) {
         return Backbone.Collection.extend({
