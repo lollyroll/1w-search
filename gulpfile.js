@@ -33,13 +33,13 @@ gulp.task('runLocalServer', function() {
     }).listen(6040);
 });
 
-gulp.task('build-min-js', function() {
-    return gulp.src(['./app/js/main.js'])
+gulp.task('build-core-min-js', function() {
+    return gulp.src(['./app/js/core/main-core.js'])
 
         .pipe(requirejsOptimize({
             baseUrl: './app',
-            name: 'js/main',
-            mainConfigFile: './app/js/main.js',
+            name: 'js/core/main-core',
+            mainConfigFile: 'app/js/core/main-core.js',
             //optimize: 'uglify2',
             optimize: 'none',
             throwWhen: {
@@ -47,13 +47,38 @@ gulp.task('build-min-js', function() {
             },
             findNestedDependencies: true,
             paths: {
-                requireLib: './js/libs/require-2.1.22'
+                requireLib: './js/core/libs/require-2.1.22',
+                'requirejs-config': 'empty'
             },
-            include: ['requireLib', 'text'],
+            include: ['requireLib'],
             optimizeAllPluginResources: true,
             preserveLicenseComments: false
         }))
-        .pipe(concat('scripts.min.js'))
+        .pipe(concat('core.min.js'))
+        .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('build-ui-min-js', function() {
+    return gulp.src(['./app/js/ui/main-ui.js'])
+
+        .pipe(requirejsOptimize({
+            baseUrl: './app',
+            name: 'js/ui/main-ui',
+            mainConfigFile: 'app/js/ui/main-ui.js',
+            //optimize: 'uglify2',
+            optimize: 'none',
+            throwWhen: {
+                optimize: true
+            },
+            findNestedDependencies: true,
+            paths: {
+                requireLib: './js/core/libs/require-2.1.22'
+            },
+            include: ['requireLib'],
+            optimizeAllPluginResources: true,
+            preserveLicenseComments: false
+        }))
+        .pipe(concat('ui.min.js'))
         .pipe(gulp.dest('dist/js'));
 });
 

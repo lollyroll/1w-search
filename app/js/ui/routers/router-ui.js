@@ -1,9 +1,9 @@
 define(
-    'router-ui',
+    'ui/routers/router-ui',
     [
         'app',
-        'views/search',
-        'views/demo'
+        'ui/views/search',
+        'ui/views/demo'
     ],
     function (App, Search, Demo) {
         return App.Router.defaultRouter.extend({

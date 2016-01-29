@@ -1,12 +1,12 @@
 define(
-    'views/search',
+    'ui/views/search',
     [
         'app',
-        'collections/polls-collection',
+        'ui/collections/polls-collection',
         'backgrid',
-        'views/backgrid-columns-configs',
+        'ui/views/backgrid-columns-configs',
         'text!templates/search.tpl',
-        'js/helpers/locales'
+        'ui/helpers/locales'
     ],
     function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages) {
         return App.View.defaultView.extend({

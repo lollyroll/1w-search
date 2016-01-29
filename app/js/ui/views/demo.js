@@ -1,5 +1,5 @@
 define(
-    'views/demo',
+    'ui/views/demo',
     [
         'app',
         'text!templates/demo.tpl'
