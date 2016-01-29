@@ -55,7 +55,9 @@ define(
 
                 self.locale = $(e.currentTarget).val();
 
-                self.search();
+                if($('#search-input').val() !== ''){
+                    self.search();
+                }
             },
             popup: function (e) {
                 var currentTarget = $(e.currentTarget),
@@ -90,6 +92,9 @@ define(
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
                     method: 'post',
                     data: {
+                        minVotes: 1000,
+                        sortCriteria: 'mostVoted',
+                        includePublicPollsOnly: true,
                         locale: locale,
                         keywords : data.keywords
                     }
