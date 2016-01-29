@@ -94,6 +94,7 @@ define(
                     data: {
                         minVotes: 1000,
                         sortCriteria: 'mostVoted',
+                        includePublicPollsOnly: true,
                         locale: locale,
                         keywords : data.keywords
                     }
