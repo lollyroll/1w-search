@@ -55,7 +55,9 @@ define(
 
                 self.locale = $(e.currentTarget).val();
 
-                self.search();
+                if($('#search-input').val() !== ''){
+                    self.search();
+                }
             },
             popup: function (e) {
                 var currentTarget = $(e.currentTarget),
