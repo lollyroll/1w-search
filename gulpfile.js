@@ -5,6 +5,7 @@ var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var requirejsOptimize = require('gulp-requirejs-optimize');
 var eslint = require('gulp-eslint');
+var minify = require('gulp-minify-css');
 
 gulp.task('default', ['lint'], function() {
     console.error('default task');
@@ -31,6 +32,13 @@ gulp.task('runLocalServer', function() {
             fileServer.serve(request, response);
         }).resume();
     }).listen(6040);
+});
+
+gulp.task('minify-css', ['compile-scss'], function() {
+    gulp.src(['./app/css/**/*.css'])
+        .pipe(concat('ui.min.css'))
+        .pipe(minify())
+        .pipe(gulp.dest('./dist/css'));
 });
 
 gulp.task('build-core-min-js', function() {
