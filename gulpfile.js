@@ -1,11 +1,34 @@
 var gulp = require('gulp');
-var staticServer = require('node-static');
 var mainBowerFiles = require('main-bower-files');
 var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var requirejsOptimize = require('gulp-requirejs-optimize');
 var eslint = require('gulp-eslint');
 var minify = require('gulp-minify-css');
+var preprocess = require('gulp-preprocess');
+var clean = require('gulp-clean');
+
+var connect = require('gulp-connect');
+var modRewrite = require('connect-modrewrite');
+
+var preprocessConfig = { context: { NODE_ENV: 'production' } };
+
+gulp.task('build', ['build-html', 'build-css', 'build-ui-min-js']);
+
+gulp.task('clean', function () {
+    return gulp.src('./dist', { read: false })
+        .pipe(clean());
+});
+
+gulp.task('test', function() {
+    console.error('tests were run');
+});
+
+gulp.task('build-html', function() {
+    return gulp.src(['app/index.html'])
+        .pipe(preprocess(preprocessConfig))
+        .pipe(gulp.dest('./dist/'));
+});
 
 gulp.task('default', ['lint'], function() {
     console.error('default task');
@@ -25,16 +48,13 @@ gulp.task('lint', function () {
 });
 
 gulp.task('runLocalServer', function() {
-    var fileServer = new staticServer.Server('app/');
-
-    require('http').createServer(function (request, response) {
-        request.addListener('end', function () {
-            fileServer.serve(request, response);
-        }).resume();
-    }).listen(6040);
+    connect.server({
+        port: 6041,
+        root: 'app/'
+    });
 });
 
-gulp.task('minify-css', ['compile-scss'], function() {
+gulp.task('build-css', ['compile-scss'], function() {
     gulp.src(['./app/css/**/*.css'])
         .pipe(concat('ui.min.css'))
         .pipe(minify())
@@ -63,6 +83,7 @@ gulp.task('build-core-min-js', function() {
             preserveLicenseComments: false
         }))
         .pipe(concat('core.min.js'))
+        .pipe(preprocess(preprocessConfig))
         .pipe(gulp.dest('dist/js'));
 });
 
@@ -87,6 +108,7 @@ gulp.task('build-ui-min-js', function() {
             preserveLicenseComments: false
         }))
         .pipe(concat('ui.min.js'))
+        .pipe(preprocess(preprocessConfig))
         .pipe(gulp.dest('dist/js'));
 });
 

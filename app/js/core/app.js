@@ -22,6 +22,10 @@ define(
             }
         };
 
+        App.config = {
+            environment: '/* @echo NODE_ENV */' || 'development'
+        };
+
         App.createPage = function(params) {
             var urlArguments = params.urlArguments ? argumentsToArray(params.urlArguments) : null,
                 View = params.view || App.View.defaultView,
@@ -47,7 +51,10 @@ define(
         };
 
         function addCss(cssArr) {
-            injectCss(cssArr);
+            if (App.config.environment !== 'production') {
+                injectCss(cssArr);
+            }
+
             addCssScopes(cssArr);
         }
 
