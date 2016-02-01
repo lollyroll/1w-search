@@ -7,7 +7,7 @@
 
 2. `npm i` - This command install all project dependencies 
 
-3. `gulp runLocalServer` - This command run local server on port 6040
+3. `gulp runLocalServer` - This command run local server
 
 #### Build SCSS
 

@@ -49,7 +49,7 @@ gulp.task('lint', function () {
 
 gulp.task('runLocalServer', function() {
     connect.server({
-        port: 6041,
+        port: 6042,
         root: 'app/'
     });
 });
