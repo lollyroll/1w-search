@@ -55,9 +55,7 @@ define(
 
                 self.locale = $(e.currentTarget).val();
 
-                if($('#search-input').val() !== ''){
-                    self.search();
-                }
+                self.search();
             },
             popup: function (e) {
                 var currentTarget = $(e.currentTarget),
@@ -142,11 +140,11 @@ define(
             },
             search: function () {
                 var self = this,
-                    currentKeywords = $('#search-input').val();
+                    currentKeywords = $('#search-input').val().trim();
 
-                self.showLoader();
-
-                $.when(self.getPolls({keywords: currentKeywords})).then(
+                if(currentKeywords !== ''){
+                    self.showLoader();
+                    $.when(self.getPolls({keywords: currentKeywords})).then(
                     function (data) {
                         self.myCollection.reset();
                         self.myCollection.add(data[1]);
@@ -158,6 +156,7 @@ define(
                         self.hideLoader();
                     }
                 );
+                }
             }
         });
     }
