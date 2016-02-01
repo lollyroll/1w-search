@@ -143,7 +143,6 @@ define(
                     currentKeywords = $('#search-input').val().trim();
 
                 if(currentKeywords !== ''){
-                    console.log(currentKeywords);
                     self.showLoader();
                     $.when(self.getPolls({keywords: currentKeywords})).then(
                     function (data) {
