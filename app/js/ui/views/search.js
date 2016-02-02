@@ -90,7 +90,7 @@ define(
                     url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
                     method: 'post',
                     data: {
-                        minVotes: 1000,
+                        //minVotes: 1000,
                         sortCriteria: 'mostVoted',
                         includePublicPollsOnly: true,
                         locale: locale,
