@@ -1,18 +1,20 @@
 <tpl id="tplSearch">
-    <h1>1WORLD SEARCH</h1>
+    <div class="container">
+        <div class="owo-logo"></div>
 
-    <form action="javascript:void(0);">
-        
-        <div value="Test">
-            <select id="select-language" class="textfield" >
-                
-            </select>
-        </div>
+        <form class="wrapper" action="javascript:void(0);">
+            
+            <div class="inline-block-tmp" value="Test">
+                <select id="select-language" class="textfield" >
+                    
+                </select>
+            </div>
 
-        <input type="text" id="search-input" placeholder="Search polls">
-        <input class="js-search" type="submit" value="Search"/>
-    </form>
-	<div id="polls-list">&nbsp;</div>
+            <input class="textfield" type="text" id="search-input" placeholder="Search polls">
+            <input class="js-search btn-lightblue" type="submit" value="Search"/>
+        </form>
+        <div id="polls-list">&nbsp;</div>
+    </div>
 </tpl>
 
 <tpl id="tplImageCell">
