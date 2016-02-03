@@ -13,7 +13,7 @@
             <input class="textfield" type="text" id="search-input" placeholder="Search polls">
             <input class="js-search btn-lightblue" type="submit" value="Search"/>
         </form>
-        <div id="polls-list">&nbsp;</div>
+        <div id="polls-list" class="polls-list">&nbsp;</div>
     </div>
 </tpl>
 
@@ -22,27 +22,40 @@
 </tpl>
 
 <tpl id="tplTaglineCell">
-    <%= cellModel.get('tagline') %>
+    <div class="tagline"><%= cellModel.get('tagline') %></div>
 </tpl>
 
 <tpl id="tplEngagementCell">
-    <img src="https://web-1worldonline-biz.s3.amazonaws.com/external/qa/1.37.2-SNAPSHOT/img/common-web/views.svg"><%= cellModel.get('totalViews') %><br>
-	<img src="https://web-1worldonline-biz.s3.amazonaws.com/external/qa/1.37.2-SNAPSHOT/img/common-web/checked.svg"><%= cellModel.get('totalVotes') %>
+    <div class="ico-views"><%= cellModel.get('totalViews') %></div>
+	<div class="ico-votes"><%= cellModel.get('totalVotes') %></div>
+</tpl>
+
+<tpl id="tplAnswersCell">
+    <ol class="answers">
+        <% _.each(cellModel.get('sides'), function(sides) { %>
+        <li>
+            <%= sides.answer %>
+        </li>
+        <% }); %>
+    </ol>
 </tpl>
 
 <tpl id="tplButtonCell">
-    <button class="showPopup">&gt;</button>
+    <div class="showPopup"></div>
 </tpl>
 
 <tpl id="tplPopupDiv">
     <div class="popupDiv">
-        <h5><%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %></h5>
-        <%= cellModel.get('categoryName') %>
-        <span class="floating"><%= cellModel.get('newTime') %><br><br></span>
+        <div class="view-page"></div>
+        <h5 class="asked-by">Asked by: <div class="link"><%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %></div></h5>
+        <div class="info-string"><span class="item status">closed</span><span class="item"><%= cellModel.get('categoryName') %></span><span class="item floating"><%= cellModel.get('newTime') %></span></div>
+        <ol class="answers">
         <% _.each(cellModel.get('sides'), function(sides) { %>
-        <label>
+        <li>
             <%= sides.answer %>
-        <label><br>
+        </li>
         <% }); %>
+        </ol>
+        <div class="source">Primary source of collected votes: <span class="source-name">Temp name</span></div>
     </div>
 </tpl>
