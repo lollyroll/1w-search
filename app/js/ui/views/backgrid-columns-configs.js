@@ -10,7 +10,7 @@ define(
             { name: 'engagement', template: 'tplEngagementCell', label: 'ENGAGEMENT', editable: false, sortable: false },
             { name: 'answers',    template: 'tplAnswersCell',    label: 'Answers',    editable: false, sortable: false },
             { name: 'button',     template: 'tplButtonCell',     label: '',           editable: false, sortable: false },
-            { name: 'popup',      template: 'tplPopupDiv',        label: '',           editable: false, sortable: false }
+            { name: 'popup',      template: 'tplPopupDiv',       label: '',           editable: false, sortable: false }
         ];
 
         return config;

@@ -3,11 +3,14 @@
 *              default.css
 *
 *              Copyright (c) 2012, 1World Online Inc.
-*              http://www.1workdonline.com
+*              http://1worldonline.com
 *
-*              This file contains properietary and confidential information of
+*              This file contains proprietary and confidential information of
 *              1World Online Inc. It can not be copied or distributed
 */
+
+$img-path: '/* @echo IMG_PATH */' or '../img/';
+
 * {
     box-sizing: border-box;
 }
@@ -63,7 +66,7 @@ a, .link {
         display:inline-block;
     }
     .owo-logo {
-        background:url(/img/1w-logo.png) no-repeat 50% 50%;
+        background: url($img-path + '1w-logo.png') no-repeat 50% 50%;
         background-size:contain;
         height:47px;
         width:240px;
@@ -126,9 +129,9 @@ a, .link {
         padding-left:18px;
     }
     .ico-views {
-        background-image: url(/img/views.svg);
+        background-image: url($img-path + 'views.svg');
     }
     .ico-votes {
-        background-image:url(/img/checked.svg);
+        background-image:url($img-path + 'checked.svg');
     }
 }
