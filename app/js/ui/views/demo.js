@@ -47,6 +47,13 @@ define(
                 var self = this;
 
                 self.$el.html(_.template(self.parent.templates[self.template]));
+
+                self.superMethod();
+            },
+            superMethod: function() {
+                console.error('child superMethod');
+
+                App.View.defaultView.prototype.superMethod.apply(this, arguments);
             }
         });
 

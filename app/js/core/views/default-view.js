@@ -20,6 +20,9 @@ define(
             },
             hideLoader: function () {
                 $('#main-loader').addClass('hide');
+            },
+            superMethod: function() {
+                console.error('parent superMethod');
             }
         });
     }
