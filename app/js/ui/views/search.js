@@ -40,15 +40,22 @@ define(
                 self.showSelectLocale();
             },
             showSelectLocale: function() {
-                var self = this;
-                var localesDropdown = self.$('#select-language');
-                var $select = $('select');
+                var self = this,
+                    localesDropdown = self.$('#select-language');
 
-                $.each(Languages, function(count, locale){
-                    $select.append($('<option>').val(count).text(locale.name));
+                var $options = [];
+
+                $.each(Languages, function(locale, localeObj){
+                    var $option = $('<option>').val(locale).text(localeObj.name);
+
+                    if (locale === self.locale) {
+                        $option.prop('selected', true);
+                    }
+
+                    $options.push($option);
                 });
 
-                localesDropdown.find('option[value=' + self.locale + ']').attr("selected", true);
+                localesDropdown.html($options);
             },
             changeLocale: function(e) {
                 var self = this;
@@ -75,13 +82,14 @@ define(
                 }
             },
             renderGrid: function () {
-                var self = this;
+                var self = this,
+                    $pollsList = self.$('#polls-list');
 
                 if (self.myCollection.length) {
-                    self.$('#polls-list').html(self.grid.render().el);
+                    $pollsList.html(self.grid.render().el);
                 }
                 else {
-                    $('#polls-list').empty();
+                    $pollsList.empty();
                 }
 
                 $('.popupDiv').hide();
@@ -91,14 +99,15 @@ define(
                 var locale = self.locale;
 
                 return $.ajax({
-                    url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
+                    url: 'https://1worldonline.com/1ws/json/PollSearchListWithPager',
                     method: 'post',
                     data: {
-                        //minVotes: 1000,
+                        minVotes: 1000,
                         sortCriteria: 'mostVoted',
                         includePublicPollsOnly: true,
                         locale: locale,
-                        keywords : data.keywords
+                        keywords : data.keywords,
+                        pageSize: 20
                     }
                 });
             },
@@ -142,24 +151,25 @@ define(
                     }
                 });
             },
-            search: function () {
+            search: function() {
                 var self = this,
                     currentKeywords = $('#search-input').val().trim();
 
-                if(currentKeywords !== ''){
+                if (currentKeywords){
                     self.showLoader();
-                    $.when(self.getPolls({keywords: currentKeywords})).then(
-                    function (data) {
-                        self.myCollection.reset();
-                        self.myCollection.add(data[1]);
 
-                        self.constructBackgridConfig();
-                        self.initGrid();
+                    $.when(self.getPolls({ keywords: currentKeywords })).then(
+                        function (data) {
+                            self.myCollection.reset();
+                            self.myCollection.add(data[1]);
 
-                        self.renderGrid();
-                        self.hideLoader();
-                    }
-                );
+                            self.constructBackgridConfig();
+                            self.initGrid();
+
+                            self.renderGrid();
+                            self.hideLoader();
+                        }
+                    );
                 }
             }
         });
