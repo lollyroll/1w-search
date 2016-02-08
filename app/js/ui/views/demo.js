@@ -17,6 +17,10 @@ define(
                 self.render();
                 self.initChilds();
 
+                log.log(1, 'log');
+                log.warn(2, 'warn');
+                log.error(3, 'error');
+
                 log(1, 'log');
                 log(2, 'warn');
                 log(3, 'error');

@@ -13,7 +13,7 @@ define(
             3: 'error'
         };
 
-        return function(level, message) {
+        var helper = function(level, message) {
             var consoleMethod = methods[level],
                 isConsoleMethodExist = typeof console[consoleMethod] === 'function';
 
@@ -21,5 +21,13 @@ define(
                 console[consoleMethod].call(console, message);
             }
         };
+
+        for (var i in methods) {
+            var method = methods[i];
+
+            helper[method] = console[method].bind(console, arguments);
+        }
+
+        return helper;
     }
 );
