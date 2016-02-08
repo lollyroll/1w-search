@@ -1,6 +1,8 @@
 <tpl id="tplDemo">
     <h3>this is Demo tpl</h3>
 
+    <button class="js-bar">This button init "barParent" method</button>
+
     <div id="child1-container">&nbsp;</div>
     <div id="child2-container">&nbsp;</div>
 </tpl>

@@ -5,7 +5,8 @@ define(
         'core/views/default-view',
         'core/collections/default-collection',
         'core/models/default-model',
-        'core/routers/default-router'
+        'core/routers/default-router',
+        'core/libs/backbone-plugins/backbone-mediator'
     ],
     function(Config, defaultView, defaultCollection, defaultModel, defaultRouter) {
         var App = {
