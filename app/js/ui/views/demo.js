@@ -2,9 +2,10 @@ define(
     'ui/views/demo',
     [
         'app',
-        'text!templates/demo.tpl'
+        'text!templates/demo.tpl',
+        'core/helpers/logger'
     ],
-    function (App, tpl) {
+    function (App, tpl, log) {
         var DemoView = App.View.defaultView.extend({
             el: '#main',
             template: 'tplDemo',
@@ -15,6 +16,10 @@ define(
                 self.resetChilds();
                 self.render();
                 self.initChilds();
+
+                log(1, 'log');
+                log(2, 'warn');
+                log(3, 'error');
             },
             resetChilds: function () {
                 var self = this;
