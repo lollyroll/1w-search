@@ -1,13 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>1W-Search</title>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" href="img/favicon-logo-32x32.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon-logo-32x32.ico" type="image/x-icon">
+
+    <!-- @if NODE_ENV='production' -->
+    <link rel="stylesheet" href="css/ui.min.css">
+    <!-- @endif -->
+
+    <!-- @exclude -->
     <link rel="stylesheet" href="css/default.css">
+    <!-- @endexclude -->
 </head>
 <body>
     <main id="main">&nbsp;</main>
     <div id="main-loader" class="main-loader hide">&nbsp;</div>
 
+    <!-- @if NODE_ENV='production' -->
+    <script src="js/ui.min.js"></script>
+    <!-- @endif -->
+
+    <!-- @exclude -->
     <script data-main="js/ui/main-ui" src="js/core/libs/require-2.1.22.js"></script>
+    <!-- @endexclude -->
 </body>
 </html>

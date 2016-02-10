@@ -1,12 +1,14 @@
 define(
     'app',
     [
+        'config',
         'core/views/default-view',
         'core/collections/default-collection',
         'core/models/default-model',
-        'core/routers/default-router'
+        'core/routers/default-router',
+        'core/libs/backbone-plugins/backbone-mediator'
     ],
-    function(defaultView, defaultCollection, defaultModel, defaultRouter) {
+    function(Config, defaultView, defaultCollection, defaultModel, defaultRouter) {
         var App = {
             View: {
                 defaultView: defaultView
@@ -21,6 +23,8 @@ define(
                 defaultRouter: defaultRouter
             }
         };
+
+        App.config = Config;
 
         App.createPage = function(params) {
             var urlArguments = params.urlArguments ? argumentsToArray(params.urlArguments) : null,
@@ -47,7 +51,10 @@ define(
         };
 
         function addCss(cssArr) {
-            injectCss(cssArr);
+            if (App.config.environment !== 'production') {
+                injectCss(cssArr);
+            }
+
             addCssScopes(cssArr);
         }
 

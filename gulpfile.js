@@ -1,17 +1,46 @@
 var gulp = require('gulp');
-var staticServer = require('node-static');
 var mainBowerFiles = require('main-bower-files');
 var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var requirejsOptimize = require('gulp-requirejs-optimize');
 var eslint = require('gulp-eslint');
+var minify = require('gulp-cssnano');
+var preprocess = require('gulp-preprocess');
+var clean = require('gulp-clean');
+
+var connect = require('gulp-connect');
+var modRewrite = require('connect-modrewrite');
+
+var preprocessConfig = {
+    context: {
+        NODE_ENV: 'production',
+        IMG_PATH: 'http://localhost:6042/img/'
+    }
+};
+
+gulp.task('build', ['build-html', 'build-css', 'build-img', 'build-ui-min-js']);
+
+gulp.task('clean', function () {
+    return gulp.src('./dist', { read: false })
+        .pipe(clean());
+});
+
+gulp.task('test', function() {
+    console.error('tests were run');
+});
+
+gulp.task('build-html', function() {
+    return gulp.src(['app/index.html'])
+        .pipe(preprocess(preprocessConfig))
+        .pipe(gulp.dest('./dist/'));
+});
 
 gulp.task('default', ['lint'], function() {
     console.error('default task');
 });
 
 gulp.task('lint', function () {
-    return gulp.src(['app/js/views/**/*.js'])
+    return gulp.src(['app/js/ui/views/**/*.js'])
         // eslint() attaches the lint output to the eslint property
         // of the file object so it can be used by other modules.
         .pipe(eslint())
@@ -24,13 +53,22 @@ gulp.task('lint', function () {
 });
 
 gulp.task('runLocalServer', function() {
-    var fileServer = new staticServer.Server('app/');
+    connect.server({
+        port: 6042,
+        root: 'app/'
+    });
+});
 
-    require('http').createServer(function (request, response) {
-        request.addListener('end', function () {
-            fileServer.serve(request, response);
-        }).resume();
-    }).listen(6040);
+gulp.task('build-css', ['compile-scss'], function() {
+    gulp.src(['./app/css/**/*.css'])
+        .pipe(concat('ui.min.css'))
+        .pipe(minify())
+        .pipe(gulp.dest('./dist/css'));
+});
+
+gulp.task('build-img', function() {
+    return gulp.src(['./app/img/**'])
+        .pipe(gulp.dest('./dist/img'));
 });
 
 gulp.task('build-core-min-js', function() {
@@ -40,8 +78,7 @@ gulp.task('build-core-min-js', function() {
             baseUrl: './app',
             name: 'js/core/main-core',
             mainConfigFile: 'app/js/core/main-core.js',
-            //optimize: 'uglify2',
-            optimize: 'none',
+            optimize: 'uglify2',
             throwWhen: {
                 optimize: true
             },
@@ -55,6 +92,7 @@ gulp.task('build-core-min-js', function() {
             preserveLicenseComments: false
         }))
         .pipe(concat('core.min.js'))
+        .pipe(preprocess(preprocessConfig))
         .pipe(gulp.dest('dist/js'));
 });
 
@@ -65,8 +103,7 @@ gulp.task('build-ui-min-js', function() {
             baseUrl: './app',
             name: 'js/ui/main-ui',
             mainConfigFile: 'app/js/ui/main-ui.js',
-            //optimize: 'uglify2',
-            optimize: 'none',
+            optimize: 'uglify2',
             throwWhen: {
                 optimize: true
             },
@@ -79,6 +116,7 @@ gulp.task('build-ui-min-js', function() {
             preserveLicenseComments: false
         }))
         .pipe(concat('ui.min.js'))
+        .pipe(preprocess(preprocessConfig))
         .pipe(gulp.dest('dist/js'));
 });
 
@@ -89,6 +127,7 @@ gulp.task('compile-scss', function() {
             css: 'app/css',
             sass: 'app/scss'
         }))
+        .pipe(preprocess(preprocessConfig))
         .pipe(gulp.dest('./app/css'));
 });
 
