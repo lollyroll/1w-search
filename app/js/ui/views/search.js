@@ -69,7 +69,7 @@ define(
                     elements = $('.popupDiv'),
                     trParent = $('.active'),
                     viewElement = currentTarget.parent().parent().find('.popupDiv');
-                
+
                 if ($(viewElement).is(':visible')) {
                     $(viewElement).hide();
                     trParent.removeClass('active');
