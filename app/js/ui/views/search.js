@@ -3,7 +3,7 @@ define(
     [
         'app',
         'ui/collections/polls-collection',
-        'backgrid',
+        'ui/libs/backbone-plugins/backgrid.column-manager',
         'ui/views/backgrid-columns-configs',
         'text!templates/search.tpl',
         'ui/helpers/locales'
