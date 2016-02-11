@@ -68,17 +68,24 @@ define(
                 var currentTarget = $(e.currentTarget),
                     elements = $('.popupDiv'),
                     trParent = $('.active'),
+                    self = this,
                     viewElement = currentTarget.parent().parent().find('.popupDiv');
+
+                    var answersColumn  = self.grid.columns.find(function(column) {
+                        return column.get("name").search("answers") > -1;
+                    });
 
                 if ($(viewElement).is(':visible')) {
                     $(viewElement).hide();
                     trParent.removeClass('active');
+                    self.columnManager.showColumn(answersColumn);
                 }
                 else {
                     elements.hide();
                     trParent.removeClass('active');
                     $(viewElement).show();
                     $(viewElement).parent().parent().addClass('active');
+                    self.columnManager.hideColumn(answersColumn);
                 }
             },
             renderGrid: function () {
@@ -123,6 +130,8 @@ define(
                     columns: self.columnsConfig,
                     collection: self.myCollection
                 });
+
+                self.columnManager = new Backgrid.Extension.ColumnManager(self.grid.columns);
             },
             constructBackgridConfig: function() {
                 var self = this,
