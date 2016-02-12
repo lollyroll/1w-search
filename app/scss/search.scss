@@ -9,11 +9,13 @@
                 text-align:left;
                 padding:0 0 18px 18px;
                 color:#343434;
+                display: none;
             }
             td {
                 border-top:1px solid #dddddd;
                 padding:16px 18px;
                 position:relative;
+                display: none;
                 &:hover {
                     .showPopup {
                         display:block;
@@ -33,6 +35,10 @@
                 td:last-child {
                     width:384px;
                 }
+            }
+            td.renderable,
+            th.renderable {
+              display: table-cell;
             }
             /*tr:hover {
                 .showPopup {
