@@ -3,7 +3,7 @@ define(
     [
         'app',
         'ui/collections/polls-collection',
-        'ui/libs/backbone-plugins/backgrid.column-manager',
+        'backgrid',
         'ui/views/backgrid-columns-configs',
         'text!templates/search.tpl',
         'ui/helpers/locales'
@@ -69,23 +69,22 @@ define(
                     elements = $('.popupDiv'),
                     trParent = $('.active'),
                     self = this,
-                    viewElement = currentTarget.parent().parent().find('.popupDiv');
-
-                    var answersColumn  = self.grid.columns.find(function(column) {
-                        return column.get("name").search("answers") > -1;
+                    viewElement = currentTarget.parent().parent().find('.popupDiv'),
+                    answersColumn  = self.grid.columns.find(function(column) {
+                        return column.get('name').search('answers') > -1;
                     });
 
                 if ($(viewElement).is(':visible')) {
                     $(viewElement).hide();
                     trParent.removeClass('active');
-                    self.columnManager.showColumn(answersColumn);
+                    answersColumn.set('renderable', true);
                 }
                 else {
                     elements.hide();
                     trParent.removeClass('active');
                     $(viewElement).show();
                     $(viewElement).parent().parent().addClass('active');
-                    self.columnManager.hideColumn(answersColumn);
+                    answersColumn.set('renderable', false);
                 }
             },
             renderGrid: function () {
@@ -130,8 +129,6 @@ define(
                     columns: self.columnsConfig,
                     collection: self.myCollection
                 });
-
-                self.columnManager = new Backgrid.Extension.ColumnManager(self.grid.columns);
             },
             constructBackgridConfig: function() {
                 var self = this,
