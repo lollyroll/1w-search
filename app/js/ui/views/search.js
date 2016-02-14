@@ -16,7 +16,8 @@ define(
             events: {
                 'click .js-search': 'search',
                 'click .showPopup': 'popup',
-                'change #select-language': 'changeLocale'
+                'change #select-language': 'changeLocale',
+                'click': 'hidePopup'
             },
             myCollection: {},
             backgridColumnsProp: [],
@@ -85,6 +86,29 @@ define(
                     $(viewElement).show();
                     $(viewElement).parent().parent().addClass('active');
                     answersColumn.set('renderable', false);
+                }
+            },
+            hidePopup: function(e) {
+                var self = this;
+
+                if (!$(e.target).hasClass('popupDiv') && !$(e.target).parent().hasClass('popupDiv')
+                && !$(e.target).parent().parent().hasClass('popupDiv')
+                && !$(e.target).hasClass('showPopup'))
+                {
+                    $('.popupDiv').hide();
+                    $('.active').removeClass('active');
+                }
+
+                if($('.popupDiv').is(':hidden') && !$(e.target).hasClass('popupDiv')
+                && !$(e.target).parent().hasClass('popupDiv')
+                && !$(e.target).parent().parent().hasClass('popupDiv')
+                && !$(e.target).hasClass('showPopup'))
+                {
+                    var answersColumn  = self.grid.columns.find(function(column) {
+                        return column.get('name').search('answers') > -1;
+                    });
+
+                    answersColumn.set('renderable', true);
                 }
             },
             renderGrid: function () {

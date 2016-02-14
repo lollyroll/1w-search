@@ -1,6 +1,6 @@
 <tpl id="tplSearch">
     <div class="container">
-        <div class="owo-logo"></div>
+        <a href="https://1worldonline.com/" target="_blank"><div class="owo-logo"></div></a>
 
         <form class="wrapper" action="javascript:void(0);">
             <div class="inline-block-tmp">
@@ -14,17 +14,19 @@
 </tpl>
 
 <tpl id="tplImageCell">
-    <div class="mymargin">
-        <% if (cellModel.get('image') && cellModel.get('image').url) { %>
-            <img src="<%= cellModel.get('image').url + '-48x48' %>" width="50" height="50">
-        <% } else { %>
-            <img src="background-gray-6x6" width="50" height="50">
-        <% } %>
-    </div>
+    <a href="https://1worldonline.com/#!/poll/<%= cellModel.get('id') %>" target="_blank">
+        <div class="mymargin">
+            <% if (cellModel.get('image') && cellModel.get('image').url) { %>
+                <img src="<%= cellModel.get('image').url + '-48x48' %>" width="50" height="50">
+            <% } else { %>
+                <img src="background-gray-6x6" width="50" height="50">
+            <% } %>
+        </div>
+    </a>
 </tpl>
 
 <tpl id="tplTaglineCell">
-    <div class="tagline"><%= cellModel.get('tagline') %></div>
+    <a href="https://1worldonline.com/#!/poll/<%= cellModel.get('id') %>" target="_blank"><div class="tagline"><%= cellModel.get('tagline') %></div></a>
 </tpl>
 
 <tpl id="tplEngagementCell">
@@ -48,7 +50,7 @@
 
 <tpl id="tplPopupDiv">
     <div class="popupDiv">
-        <div class="view-page"></div>
+      <a href="#eye"><div class="view-page"></div></a>
         <h5 class="asked-by">
             Asked by:
             <span class="link">
@@ -56,7 +58,7 @@
             </span>
         </h5>
         <div class="info-string">
-            <span class="item status">closed</span>
+            <span class="item status"><%= cellModel.get('status') == 'closed' ? "closed" : "" %></span>
             <span class="item"><%= cellModel.get('categoryName') %></span>
             <span class="item floating"><%= cellModel.get('newTime') %></span>
         </div>
