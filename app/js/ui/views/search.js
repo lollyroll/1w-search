@@ -6,9 +6,11 @@ define(
         'backgrid',
         'ui/views/backgrid-columns-configs',
         'text!templates/search.tpl',
-        'ui/helpers/locales'
+        'ui/helpers/locales',
+        'ui/helpers/to-friendly-number',
+        'ui/helpers/separate-each-1K'
     ],
-    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages) {
+    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages, FriendlyNum, Separator) {
         return App.View.defaultView.extend({
             el: '#main',
             grid: {},
@@ -16,7 +18,8 @@ define(
             events: {
                 'click .js-search': 'search',
                 'click .showPopup': 'popup',
-                'change #select-language': 'changeLocale'
+                'change #select-language': 'changeLocale',
+                'click': 'hidePopup'
             },
             myCollection: {},
             backgridColumnsProp: [],
@@ -40,15 +43,22 @@ define(
                 self.showSelectLocale();
             },
             showSelectLocale: function() {
-                var self = this;
-                var localesDropdown = self.$('#select-language');
-                var $select = $('select');
+                var self = this,
+                    localesDropdown = self.$('#select-language');
 
-                $.each(Languages, function(count, locale){
-                    $select.append($('<option>').val(count).text(locale.name));
+                var $options = [];
+
+                $.each(Languages, function(locale, localeObj){
+                    var $option = $('<option>').val(locale).text(localeObj.name);
+
+                    if (locale === self.locale) {
+                        $option.prop('selected', true);
+                    }
+
+                    $options.push($option);
                 });
 
-                localesDropdown.find('option[value=' + self.locale + ']').attr("selected", true);
+                localesDropdown.html($options);
             },
             changeLocale: function(e) {
                 var self = this;
@@ -61,27 +71,57 @@ define(
                 var currentTarget = $(e.currentTarget),
                     elements = $('.popupDiv'),
                     trParent = $('.active'),
-                    viewElement = currentTarget.parent().parent().find('.popupDiv');
-                
+                    self = this,
+                    viewElement = currentTarget.parent().parent().find('.popupDiv'),
+                    answersColumn  = self.grid.columns.find(function(column) {
+                        return column.get('name').search('answers') > -1;
+                    });
+
                 if ($(viewElement).is(':visible')) {
                     $(viewElement).hide();
                     trParent.removeClass('active');
+                    answersColumn.set('renderable', true);
                 }
                 else {
                     elements.hide();
                     trParent.removeClass('active');
                     $(viewElement).show();
                     $(viewElement).parent().parent().addClass('active');
+                    answersColumn.set('renderable', false);
+                }
+            },
+            hidePopup: function(e) {
+                var self = this;
+
+                if (!$(e.target).hasClass('popupDiv') && !$(e.target).parent().hasClass('popupDiv')
+                && !$(e.target).parent().parent().hasClass('popupDiv')
+                && !$(e.target).hasClass('showPopup'))
+                {
+                    $('.popupDiv').hide();
+                    $('.active').removeClass('active');
+                }
+
+                if($('.popupDiv').is(':hidden') && !$(e.target).hasClass('popupDiv')
+                && !$(e.target).parent().hasClass('popupDiv')
+                && !$(e.target).parent().parent().hasClass('popupDiv')
+                && !$(e.target).hasClass('showPopup'))
+                {
+                    var answersColumn  = self.grid.columns.find(function(column) {
+                        return column.get('name').search('answers') > -1;
+                    });
+
+                    answersColumn.set('renderable', true);
                 }
             },
             renderGrid: function () {
-                var self = this;
+                var self = this,
+                    $pollsList = self.$('#polls-list');
 
                 if (self.myCollection.length) {
-                    self.$('#polls-list').html(self.grid.render().el);
+                    $pollsList.html(self.grid.render().el);
                 }
                 else {
-                    $('#polls-list').empty();
+                    $pollsList.empty();
                 }
 
                 $('.popupDiv').hide();
@@ -91,14 +131,15 @@ define(
                 var locale = self.locale;
 
                 return $.ajax({
-                    url: 'https://qa.1worldonline.biz/1ws/json/PollSearchListWithPager',
+                    url: 'https://1worldonline.com/1ws/json/PollSearchListWithPager',
                     method: 'post',
                     data: {
-                        //minVotes: 1000,
+                        minVotes: 1000,
                         sortCriteria: 'mostVoted',
                         includePublicPollsOnly: true,
                         locale: locale,
-                        keywords : data.keywords
+                        keywords : data.keywords,
+                        pageSize: 20
                     }
                 });
             },
@@ -135,31 +176,34 @@ define(
 
                         cell.$el.html(_.template(self.templates[columnTemplate], {
                             cellModel: cell.model,
-                            cellUi: self.parent
+                            cellUi: self.parent,
+                            FriendlyNum: FriendlyNum,
+                            Separator: Separator
                         }));
 
                         return cell;
                     }
                 });
             },
-            search: function () {
+            search: function() {
                 var self = this,
                     currentKeywords = $('#search-input').val().trim();
 
-                if(currentKeywords !== ''){
+                if (currentKeywords){
                     self.showLoader();
-                    $.when(self.getPolls({keywords: currentKeywords})).then(
-                    function (data) {
-                        self.myCollection.reset();
-                        self.myCollection.add(data[1]);
 
-                        self.constructBackgridConfig();
-                        self.initGrid();
+                    $.when(self.getPolls({ keywords: currentKeywords })).then(
+                        function (data) {
+                            self.myCollection.reset();
+                            self.myCollection.add(data[1]);
 
-                        self.renderGrid();
-                        self.hideLoader();
-                    }
-                );
+                            self.constructBackgridConfig();
+                            self.initGrid();
+
+                            self.renderGrid();
+                            self.hideLoader();
+                        }
+                    );
                 }
             }
         });

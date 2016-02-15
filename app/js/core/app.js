@@ -1,12 +1,14 @@
 define(
     'app',
     [
+        'config',
         'core/views/default-view',
         'core/collections/default-collection',
         'core/models/default-model',
-        'core/routers/default-router'
+        'core/routers/default-router',
+        'core/libs/backbone-plugins/backbone-mediator'
     ],
-    function(defaultView, defaultCollection, defaultModel, defaultRouter) {
+    function(Config, defaultView, defaultCollection, defaultModel, defaultRouter) {
         var App = {
             View: {
                 defaultView: defaultView
@@ -22,9 +24,7 @@ define(
             }
         };
 
-        App.config = {
-            environment: '/* @echo NODE_ENV */' || 'development'
-        };
+        App.config = Config;
 
         App.createPage = function(params) {
             var urlArguments = params.urlArguments ? argumentsToArray(params.urlArguments) : null,

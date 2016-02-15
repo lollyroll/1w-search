@@ -3,28 +3,25 @@ define(
     [
         'app',
         'ui/views/search',
-        'ui/views/demo'
+        'ui/views/eye'
     ],
-    function (App, Search, Demo) {
+    function (App, Search, Eye) {
         return App.Router.defaultRouter.extend({
             routes: {
                 '(/)': 'search',
-                'demo': 'demo',
-                'popup': 'popup'
+                'eye': 'eye'
             },
             search: function () {
                 App.createPage({
-                    //templates: ['search'],
                     css: ['search'],
                     view: Search,
                     urlArguments: arguments
                 });
             },
-            demo: function () {
+            eye: function () {
                 App.createPage({
-                    //templates: ['demo'],
-                    css: ['demo'],
-                    view: Demo,
+                    css: ['eye'],
+                    view: Eye,
                     urlArguments: arguments
                 });
             }

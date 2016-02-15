@@ -4,16 +4,21 @@ var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var requirejsOptimize = require('gulp-requirejs-optimize');
 var eslint = require('gulp-eslint');
-var minify = require('gulp-minify-css');
+var minify = require('gulp-cssnano');
 var preprocess = require('gulp-preprocess');
 var clean = require('gulp-clean');
 
 var connect = require('gulp-connect');
 var modRewrite = require('connect-modrewrite');
 
-var preprocessConfig = { context: { NODE_ENV: 'production' } };
+var preprocessConfig = {
+    context: {
+        NODE_ENV: 'production',
+        IMG_PATH: 'http://dosandk.github.io/1w-search/dist/img/'
+    }
+};
 
-gulp.task('build', ['build-html', 'build-css', 'build-ui-min-js']);
+gulp.task('build', ['build-css', 'build-img', 'build-ui-min-js']);
 
 gulp.task('clean', function () {
     return gulp.src('./dist', { read: false })
@@ -50,7 +55,7 @@ gulp.task('lint', function () {
 gulp.task('runLocalServer', function() {
     connect.server({
         port: 6042,
-        root: 'app/'
+        root: './'
     });
 });
 
@@ -61,6 +66,11 @@ gulp.task('build-css', ['compile-scss'], function() {
         .pipe(gulp.dest('./dist/css'));
 });
 
+gulp.task('build-img', function() {
+    return gulp.src(['./app/img/**'])
+        .pipe(gulp.dest('./dist/img'));
+});
+
 gulp.task('build-core-min-js', function() {
     return gulp.src(['./app/js/core/main-core.js'])
 
@@ -68,8 +78,7 @@ gulp.task('build-core-min-js', function() {
             baseUrl: './app',
             name: 'js/core/main-core',
             mainConfigFile: 'app/js/core/main-core.js',
-            //optimize: 'uglify2',
-            optimize: 'none',
+            optimize: 'uglify2',
             throwWhen: {
                 optimize: true
             },
@@ -94,8 +103,7 @@ gulp.task('build-ui-min-js', function() {
             baseUrl: './app',
             name: 'js/ui/main-ui',
             mainConfigFile: 'app/js/ui/main-ui.js',
-            //optimize: 'uglify2',
-            optimize: 'none',
+            optimize: 'uglify2',
             throwWhen: {
                 optimize: true
             },
@@ -119,6 +127,7 @@ gulp.task('compile-scss', function() {
             css: 'app/css',
             sass: 'app/scss'
         }))
+        .pipe(preprocess(preprocessConfig))
         .pipe(gulp.dest('./app/css'));
 });
 

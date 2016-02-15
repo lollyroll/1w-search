@@ -5,12 +5,12 @@ define(
         var config = {};
 
         config.backgridColumnsProp = [
-            { name: 'image',      template: 'tplImageCell',      label: '',           editable: false, sortable: false },
-            { name: 'tagline',    template: 'tplTaglineCell',    label: 'TAGLINE',    editable: false, sortable: false },
-            { name: 'engagement', template: 'tplEngagementCell', label: 'ENGAGEMENT', editable: false, sortable: false },
-            { name: 'answers',    template: 'tplAnswersCell',    label: 'Answers',    editable: false, sortable: false },
-            { name: 'button',     template: 'tplButtonCell',     label: '',           editable: false, sortable: false },
-            { name: 'popup',      template: 'tplPopupDiv',        label: '',           editable: false, sortable: false }
+            { name: 'image',      template: 'tplImageCell',      label: '',           renderable: true, editable: false, sortable: false },
+            { name: 'tagline',    template: 'tplTaglineCell',    label: 'TAGLINE',    renderable: true, editable: false, sortable: false },
+            { name: 'engagement', template: 'tplEngagementCell', label: 'ENGAGEMENT', renderable: true, editable: false, sortable: false },
+            { name: 'answers',    template: 'tplAnswersCell',    label: 'Answers',    renderable: true, editable: false, sortable: false },
+            { name: 'button',     template: 'tplButtonCell',     label: '',           renderable: true, editable: false, sortable: false },
+            { name: 'popup',      template: 'tplPopupDiv',       label: '',           renderable: true, editable: false, sortable: false }
         ];
 
         return config;
