@@ -30,8 +30,8 @@
 </tpl>
 
 <tpl id="tplEngagementCell">
-    <div class="ico-views"><%= cellModel.get('totalViews') %></div>
-	<div class="ico-votes"><%= cellModel.get('totalVotes') %></div>
+    <div class="ico-views"><%= FriendlyNum(cellModel.get('totalViews'), 1) %></div>
+	<div class="ico-votes"><%= FriendlyNum(cellModel.get('totalVotes'), 1) %></div>
 </tpl>
 
 <tpl id="tplAnswersCell">

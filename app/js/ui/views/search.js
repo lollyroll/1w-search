@@ -6,9 +6,11 @@ define(
         'backgrid',
         'ui/views/backgrid-columns-configs',
         'text!templates/search.tpl',
-        'ui/helpers/locales'
+        'ui/helpers/locales',
+        'ui/helpers/to-friendly-number',
+        'ui/helpers/separate-each-1K'
     ],
-    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages) {
+    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages, FriendlyNum, Separator) {
         return App.View.defaultView.extend({
             el: '#main',
             grid: {},
@@ -174,7 +176,9 @@ define(
 
                         cell.$el.html(_.template(self.templates[columnTemplate], {
                             cellModel: cell.model,
-                            cellUi: self.parent
+                            cellUi: self.parent,
+                            FriendlyNum: FriendlyNum,
+                            Separator: Separator
                         }));
 
                         return cell;
