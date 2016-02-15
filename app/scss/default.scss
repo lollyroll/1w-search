@@ -1,4 +1,3 @@
-@import "base";
 /*
 *              default.css
 *
@@ -9,7 +8,7 @@
 *              1World Online Inc. It can not be copied or distributed
 */
 
-$img-path: '/* @echo IMG_PATH */' or '../img/';
+$img-path: '/* @echo IMG_PATH */' or 'http://localhost:6042/dist/img/';
 
 * {
     box-sizing: border-box;

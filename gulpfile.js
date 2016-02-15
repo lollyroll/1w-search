@@ -14,7 +14,7 @@ var modRewrite = require('connect-modrewrite');
 var preprocessConfig = {
     context: {
         NODE_ENV: 'production',
-        IMG_PATH: 'http://localhost:6042/img/'
+        IMG_PATH: 'http://localhost:6042/dist/img/'
     }
 };
 
@@ -55,7 +55,7 @@ gulp.task('lint', function () {
 gulp.task('runLocalServer', function() {
     connect.server({
         port: 6042,
-        root: 'app/'
+        root: './'
     });
 });
 
