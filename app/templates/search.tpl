@@ -50,7 +50,7 @@
 
 <tpl id="tplPopupDiv">
     <div class="popupDiv">
-      <a href="#eye"><div class="view-page"></div></a>
+      <a target="_blank" href="#eye"><div class="view-page"></div></a>
         <h5 class="asked-by">
             Asked by:
             <span class="link">
