@@ -6,4 +6,9 @@ node_js:
 before_script:
   - npm install -g gulp
 
-script: gulp
+script:
+  gulp build
+env:
+  global:
+  - GH_REF: github.com/dosandk/1w-search.git
+  - secure: "x/JRGKGtviRAkcCTxrJ4KRgeWIa96Wnz1m6DV2nN/k1SFUQVW/x5MN7s13R9Q3CYq+rFghnweeB/E/amtoHcUWA639C2iQXgDMarCFMeH/VZfddKp0w8gAGUIRZd0ONI35SNYvzDPBXaQSOwKYoD2qAum+Ch0EYLV6psvFU5+djvRzXu/RJm+4M1kq2LAZynK4Uh/y77jfZBgMr2ZPU2x07gYHz9vA39FbcT/uMC/pQZngy10nc5SDWGYq0tf9Qlaovi/M0Ca9qfeJr+812zd0BEkLQ4Z3V+u7TQmfIPwtbHTPzWd6fQjcpbUBcsOJhNYCGouQ0Ti3jTCKv0FDdICCZR2Q826nBbL8bd/GJRF6xiPz3VD9q0noNIKDFCOVFYyFKyuiGB3KsDuzPnNqNQI8JNK76dsB89kk0YykAQ+ijWRjOZPVLry6mWTFIzSmaWe/13etHFSPdl4Eo9N0tYNkvTs7CHRw2Fzk03vJe0EKvWk1/pIKrekT1TNskr6QoLXhKXGOxzGHJV/1GpSX4jF1T1skeW4aXc+BZ2L10yWKGJMn1DoMYL7aNtVk5tSjQ9bgbHk6zfz9g6fy0WJblKdq/HXfYW1msJF4WWq41lajaGotGWXKGwLVZNRb6djDu2np5atbIRDe69G0sCdOVzxBrxoVS2IQJ6C4AylAdMtJk="
