@@ -77,6 +77,8 @@ a, .link {
         margin:0 5px;
         width:auto;
         cursor:pointer;
+        height:45px;
+        border:1px solid #afafaf;
     }
     .textfield {
         border:1px solid #afafaf;
@@ -91,7 +93,7 @@ a, .link {
     }
     .btn-lightblue {
         //@extend %noneSelectable;
-        font:bold 12px / 23px Arial,Helvetica,sans-serif;
+        font:bold 12px / 24px Arial,Helvetica,sans-serif;
         color:#fff;
         display:inline-block;
         -webkit-border-radius: 5px;
