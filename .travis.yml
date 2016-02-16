@@ -5,6 +5,7 @@ node_js:
 
 before_script:
   - npm install -g gulp
+  - gem install sass
 
 script:
   gulp build
