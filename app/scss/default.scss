@@ -44,8 +44,10 @@ a, .link {
 .container {
     width:960px;
     margin:15% auto;
-    outline: 1px solid white;
+}
 
+.riba {
+    background: red;
 }
 .default {
     background:#fff;
