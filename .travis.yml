@@ -5,7 +5,7 @@ node_js:
 
 before_script:
   - npm install -g gulp
-  - gem install sass
+  - gem install compass
 
 script:
   gulp build
