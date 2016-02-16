@@ -1,7 +1,7 @@
 #!/bin/bash
 rm -rf out || exit 0;
 mkdir out;
-node build.js
+gulp build
 ( cd out
  git init
  git config user.name "Travis-CI"
