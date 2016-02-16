@@ -7,7 +7,7 @@
         "start": "NODE_ENV=development",
         "build": "NODE_ENV=production",
         "test": "gulp test",
-        "deploy": "sudo ./deploy-ghpages.sh"
+        "deploy": "./deploy-ghpages.sh"
     },
     "repository": {
         "type": "git",

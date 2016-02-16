@@ -9,6 +9,9 @@ branches:
       - master
       - gh-pages
 
+before_install:
+ - chmod +x deploy-ghpages.sh
+
 before_script:
   - npm install -g gulp
   - gem install compass
