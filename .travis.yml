@@ -3,6 +3,12 @@ language: node_js
 node_js:
   - "4.1"
 
+# whitelist
+branches:
+  only:
+      - master
+      - gh-pages
+
 before_script:
   - npm install -g gulp
   - gem install compass
