@@ -14,11 +14,11 @@ var modRewrite = require('connect-modrewrite');
 var preprocessConfig = {
     context: {
         NODE_ENV: 'production',
-        IMG_PATH: 'http://localhost:6042/img/'
+        IMG_PATH: 'http://dosandk.github.io/1w-search/dist/img/'
     }
 };
 
-gulp.task('build', ['build-html', 'build-css', 'build-img', 'build-ui-min-js']);
+gulp.task('build', ['build-css', 'build-img', 'build-ui-min-js']);
 
 gulp.task('clean', function () {
     return gulp.src('./dist', { read: false })
@@ -55,7 +55,7 @@ gulp.task('lint', function () {
 gulp.task('runLocalServer', function() {
     connect.server({
         port: 6042,
-        root: 'app/'
+        root: './'
     });
 });
 
