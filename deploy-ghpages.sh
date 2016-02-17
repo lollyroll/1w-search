@@ -5,8 +5,8 @@ rm -rf out || exit 0;
 mkdir out
 cd out
 git init
-git config user.name "Travis-CI"
-git config user.email "dosandkv@gmail.com"
+git config --global user.name "Travis-CI"
+git config --global user.email "dosandkv@gmail.com"
 git clone --quiet --branch=gh-pages https://${GH_TOKEN}@${GH_REF} gh-pages > /dev/null
 
 # Commit and Push the Changes
