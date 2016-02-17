@@ -8,7 +8,7 @@ git clone --quiet --branch=gh-pages https://${GH_TOKEN}@${GH_REF} gh-pages > /de
 # Commit and Push the Changes
 cd gh-pages
 git rm -rf ./dist
-npm install -g gulp
+npm install
 gulp build
 git add -f .
 git commit -m "Deployed to Github Pages"
