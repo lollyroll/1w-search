@@ -6,7 +6,7 @@ git config --global user.name "travis-ci"
 git clone --quiet --branch=gh-pages https://${GH_TOKEN}@${GH_REF} gh-pages > /dev/null
 
 # Commit and Push the Changes
-cd gh-pages
+cd 1w-search
 git rm -rf ./dist
 npm install -g gulp
 gulp build
