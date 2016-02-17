@@ -15,11 +15,8 @@ before_script:
   - npm install -g gulp
   - gem install compass
 
-master:
-  script: gulp lint
-
-gh-pages:
-  script: npm run-script deploy
+script:
+  npm run-script deploy
 
 env:
   global:
