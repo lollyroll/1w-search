@@ -28,6 +28,8 @@ define(
             initialize: function () {
                 var self = this;
 
+                console.log('test');
+
                 self.myCollection = new pollsCollection();
                 self.myCollection.parent = self;
 
