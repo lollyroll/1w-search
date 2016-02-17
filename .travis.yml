@@ -16,10 +16,7 @@ before_script:
   - gem install compass
 
 script:
-  gulp lint
-
-after_success:
-  npm deploy
+  npm run-script deploy
 
 env:
   global:
