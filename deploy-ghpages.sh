@@ -14,6 +14,6 @@ cd gh-pages
 git rm -rf ./dist
 npm install
 gulp build
-git add -f .
+git add .
 git commit -m "Deployed to Github Pages"
 git push -fq origin gh-pages > /dev/null
