@@ -58,6 +58,9 @@
             </span>
         </h5>
         <div class="info-string">
+            <% if(cellModel.get('status') === "closed") { %>
+                <span class="item status"><%= cellModel.get('status') %></span>
+            <% } %>
             <span class="item status"><%= cellModel.get('status') == 'closed' ? "closed" : "" %></span>
             <span class="item"><%= cellModel.get('categoryName') %></span>
             <span class="item floating"><%= cellModel.get('newTime') %></span>
@@ -75,3 +78,4 @@
         </div>
     </div>
 </tpl>
+

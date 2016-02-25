@@ -3,7 +3,22 @@ language: node_js
 node_js:
   - "4.1"
 
+branches:
+  only:
+      - master
+      - gh-pages
+
+before_install:
+ - chmod +x deploy-ghpages.sh
+
 before_script:
   - npm install -g gulp
+  - gem install compass
 
-script: gulp
+script:
+  npm run-script deploy
+
+env:
+  global:
+  - GH_REF: github.com/dosandk/1w-search.git
+  - secure: "FG0P02c1viDPkvmxcf5poVI07Mzxd1ku77vCBuz7fGE3oUXPX4SWElbJz0UDgMXMwePzjfHlZRoU38Sm4v3kxUUr8vg6Kyjiuma2AGUgh6Ww77c+nf2CCkUx1pnTcI6JUZbnUGQOxV1nKf+zinh5lnCFW/sFA2jDzw91ai3md5Rub6q2uodstpipllN4zqE9xWTRYEJRVsDYuOE0t8bdS9qjDeCfSBZG5S7V5NgbGzTyz5KNiAegmLZF/xqVO2HS694sowm+ySp5pqxWIlUwEZJvIM1kfYM182LatJpx1C9n4urhR3bEf1KLWDcaq5riyvUbh1xE58YY2XoGN66zQHBbw1KR+vrhMbyst1WgAjUZAYXs3e8CAPv/2TLbmnL3ty+OECuylGz1t1SWvYK3M6pI9/kOF+G/sj+JWMbRoJC8SB7owjnpj7qVYWmqXBwynqRej7LssaXNdsajSZqmV945LqDJ6NGXwkKsEDVED7urIsDeb1t+DQXLAge0nGC0gyo5an5dCRnodtP/CZXfdeDv0l3MZIgdQ9c7GiDdqOx2ELwzS+c10lFFOBy+hPpnYRT2oWiNwxu6Dc4RMMHzLSMS7ARUowt8LmNyqBPrhgjODkZMMbQQWfuwlN8l/oAvoHnWS8td6mESSsA9mjkd0TywHqcph8z7DuX5cY8QsMk="

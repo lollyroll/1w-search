@@ -10,3 +10,9 @@ node_modules
 
 ### SASS ###
 *.sass-cache
+
+### Travis ###
+.travis.yml
+
+### Dist ###
+#dist

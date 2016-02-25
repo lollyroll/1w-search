@@ -7,10 +7,9 @@ define(
         'ui/views/backgrid-columns-configs',
         'text!templates/search.tpl',
         'ui/helpers/locales',
-        'ui/helpers/to-friendly-number',
-        'ui/helpers/separate-each-1K'
+        'ui/helpers/to-friendly-number'
     ],
-    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages, FriendlyNum, Separator) {
+    function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages, FriendlyNum) {
         return App.View.defaultView.extend({
             el: '#main',
             grid: {},
@@ -18,8 +17,7 @@ define(
             events: {
                 'click .js-search': 'search',
                 'click .showPopup': 'popup',
-                'change #select-language': 'changeLocale',
-                'click': 'hidePopup'
+                'change #select-language': 'changeLocale'
             },
             myCollection: {},
             backgridColumnsProp: [],
@@ -27,6 +25,10 @@ define(
             locale: 'en',
             initialize: function () {
                 var self = this;
+
+                $(document).on('click', function(e) {
+                    self.hidePopup(e);
+                });
 
                 self.myCollection = new pollsCollection();
                 self.myCollection.parent = self;
@@ -177,8 +179,7 @@ define(
                         cell.$el.html(_.template(self.templates[columnTemplate], {
                             cellModel: cell.model,
                             cellUi: self.parent,
-                            FriendlyNum: FriendlyNum,
-                            Separator: Separator
+                            FriendlyNum: FriendlyNum
                         }));
 
                         return cell;
