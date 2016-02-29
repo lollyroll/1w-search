@@ -15,4 +15,4 @@ node_modules
 .travis.yml
 
 ### Dist ###
-dist
+#dist

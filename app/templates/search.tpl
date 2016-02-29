@@ -1,4 +1,5 @@
 <tpl id="tplSearch">
+    <div class="top"><div class="btn-lightblue">Sign up</div></div>
     <div class="container">
         <a href="https://1worldonline.com/" target="_blank"><div class="owo-logo"></div></a>
 
@@ -35,13 +36,23 @@
 </tpl>
 
 <tpl id="tplAnswersCell">
-    <ol class="answers">
+    <!--<ol class="answers">
         <% _.each(cellModel.get('sides'), function(sides) { %>
         <li>
             <%= sides.answer %>
         </li>
         <% }); %>
-    </ol>
+    </ol>-->
+    <div class="poll-author-avatar">
+        <img src="https://dev-web-images.s3.amazonaws.com/partner_logoedccaa95-0f28-4392-902c-0ee9d730abe4-0-120x120">
+    </div>
+    <h5 class="asked-by">
+            Asked by:
+            <span class="link">
+                <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
+            </span>
+        </h5>
+    
 </tpl>
 
 <tpl id="tplButtonCell">
@@ -58,6 +69,9 @@
             </span>
         </h5>
         <div class="info-string">
+            <% if(cellModel.get('status') === "closed") { %>
+                <span class="item status"><%= cellModel.get('status') %></span>
+            <% } %>
             <span class="item status"><%= cellModel.get('status') == 'closed' ? "closed" : "" %></span>
             <span class="item"><%= cellModel.get('categoryName') %></span>
             <span class="item floating"><%= cellModel.get('newTime') %></span>

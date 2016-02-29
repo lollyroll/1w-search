@@ -47,8 +47,7 @@ a, .link {
 }
 
 .riba {
-    background: orange;
-
+    background: orchid;
 }
 
 .default {
@@ -140,5 +139,36 @@ a, .link {
     }
     .ico-votes {
         background-image:url($img-path + 'checked.svg');
+    }
+    .top {
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        background:#efefef;
+        padding:15px;
+        .btn-lightblue {
+            float:right;
+            height:25px;
+            line-height:25px;
+            width:auto;
+            padding:0 15px;
+        }
+    }
+    .poll-author-avatar {
+        width: 30px;
+        height: 30px;
+        border-radius:50px;
+        margin:0 12px 0 18px;
+        float:left;
+        overflow:hidden;
+        img {
+            width:30px;
+            height:30px;
+        }
+    }
+    .poll-author-avatar + .asked-by {
+        float:left;
+        margin-left:10px;
     }
 }
