@@ -1,5 +1,7 @@
 <tpl id="tplSearch">
-    <div class="top"><div class="btn-lightblue">Sign up</div></div>
+    <div class="top">
+        <a class="btn-lightblue" href="https://1worldonline.com/#!/become-partner" target="_blank">Sign up</a>
+    </div>
     <div class="container">
         <a href="https://1worldonline.com/" target="_blank"><div class="owo-logo"></div></a>
 
@@ -35,7 +37,7 @@
 	<div class="ico-votes"><%= FriendlyNum(cellModel.get('totalVotes'), 1) %></div>
 </tpl>
 
-<tpl id="tplAnswersCell">
+<tpl id="tplSourceCell">
     <!--<ol class="answers">
         <% _.each(cellModel.get('sides'), function(sides) { %>
         <li>
@@ -52,7 +54,7 @@
                 <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
             </span>
         </h5>
-    
+
 </tpl>
 
 <tpl id="tplButtonCell">
@@ -88,4 +90,3 @@
         </div>
     </div>
 </tpl>
-

@@ -75,21 +75,21 @@ define(
                     trParent = $('.active'),
                     self = this,
                     viewElement = currentTarget.parent().parent().find('.popupDiv'),
-                    answersColumn  = self.grid.columns.find(function(column) {
-                        return column.get('name').search('answers') > -1;
+                    sourceColumn  = self.grid.columns.find(function(column) {
+                        return column.get('name').search('source') > -1;
                     });
 
                 if ($(viewElement).is(':visible')) {
                     $(viewElement).hide();
                     trParent.removeClass('active');
-                    answersColumn.set('renderable', true);
+                    sourceColumn.set('renderable', true);
                 }
                 else {
                     elements.hide();
                     trParent.removeClass('active');
                     $(viewElement).show();
                     $(viewElement).parent().parent().addClass('active');
-                    answersColumn.set('renderable', false);
+                    sourceColumn.set('renderable', false);
                 }
             },
             hidePopup: function(e) {
@@ -108,11 +108,11 @@ define(
                 && !$(e.target).parent().parent().hasClass('popupDiv')
                 && !$(e.target).hasClass('showPopup'))
                 {
-                    var answersColumn  = self.grid.columns.find(function(column) {
-                        return column.get('name').search('answers') > -1;
+                    var sourceColumn  = self.grid.columns.find(function(column) {
+                        return column.get('name').search('source') > -1;
                     });
 
-                    answersColumn.set('renderable', true);
+                    sourceColumn.set('renderable', true);
                 }
             },
             renderGrid: function () {
@@ -136,7 +136,7 @@ define(
                     url: 'https://1worldonline.com/1ws/json/PollSearchListWithPager',
                     method: 'post',
                     data: {
-                        minVotes: 1000,
+                        minVotes: 100,
                         sortCriteria: 'mostVoted',
                         includePublicPollsOnly: true,
                         locale: locale,
