@@ -17,7 +17,8 @@ define(
             events: {
                 'click .js-search': 'search',
                 'click .showPopup': 'popup',
-                'change #select-language': 'changeLocale'
+                'change #select-language': 'changeLocale',
+                'input #search-input': 'hidePollsList'
             },
             myCollection: {},
             backgridColumnsProp: [],
@@ -68,6 +69,12 @@ define(
                 self.locale = $(e.currentTarget).val();
 
                 self.search();
+            },
+            hidePollsList: function() {
+                if($('#search-input').val() === '')
+                {
+                    $('#polls-list').empty();
+                }
             },
             popup: function (e) {
                 var currentTarget = $(e.currentTarget),
@@ -174,12 +181,16 @@ define(
 
                 return Backgrid.Cell.extend({
                     render: function() {
-                        var cell = this;
+                        var cell = this,
+                            totalViewsFormatted = FriendlyNum(cell.model.get('totalViews'), 1),
+                            totalVotesFormatted = FriendlyNum(cell.model.get('totalVotes'), 1);
+
+                        cell.model.set({'totalViewsFormatted': totalViewsFormatted});
+                        cell.model.set({'totalVotesFormatted': totalVotesFormatted});
 
                         cell.$el.html(_.template(self.templates[columnTemplate], {
                             cellModel: cell.model,
-                            cellUi: self.parent,
-                            FriendlyNum: FriendlyNum
+                            cellUi: self.parent
                         }));
 
                         return cell;
