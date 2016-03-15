@@ -71,7 +71,7 @@ define(
             addFlagsToLocaleSelector: function() {
                 $.widget( 'custom.iconselectmenu', $.ui.selectmenu, {
                   _renderItem: function( ul, item ) {
-                    var li = $( '<li>', { text: item.label, value: item.value } );
+                    var li = $( '<li>', { text: item.label, value: item.value, class: 'lang-' + item.element.attr( 'value' ) } );
 
                     if ( item.disabled ) {
                       li.addClass( 'ui-state-disabled' );
@@ -82,12 +82,15 @@ define(
                     })
                       .appendTo( li );
 
+                    $('#select-language-button').addClass('lang-en');
+
                     return li.appendTo( ul );
                   }
                 });
 
                 $( '#select-language' )
                 .iconselectmenu();
+
 
                 $( '<span>', {
                   'class': 'ui-icon en',
@@ -99,8 +102,10 @@ define(
                 var self = this;
 
                 $('#buttonIcon').removeClass('ui-icon '+ self.locale +'');
+                $('#select-language-button').removeClass('lang-' + self.locale);
                 self.locale = $(e.currentTarget).attr('value');
                 $('#buttonIcon').addClass('ui-icon '+ self.locale +'');
+                $('#select-language-button').addClass('lang-' + self.locale);
                 self.search();
             },
             hidePollsList: function() {
