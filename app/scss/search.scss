@@ -6,12 +6,15 @@
         right: auto;
         left: 0.5em;
     }
+    .textfield {
+        font: normal 14px Arial,Helvetica,sans-serif;
+    }
     .ui-selectmenu-text {
-        text-align: center !important;
-        padding: 0.4em 2.1em 0.4em 1.6em !important;
+        padding: 0.4em 2.1em 0.4em 34px !important;
     }
     .ui-selectmenu-menu .ui-menu-item {
-          padding: 0.1em 0 0.1em 1.3em;
+          padding:10px 0 10px 42px;
+            font: normal 14px Arial,Helvetica,sans-serif;
     }
     .ui-selectmenu-menu {
         width: 12em;
@@ -23,10 +26,24 @@
         overflow: scroll;
         overflow-x: hidden;
     }
+    .ui-selectmenu-button {
+        background:none;
+        vertical-align: middle;
+        border-radius: 0;
+        height: 45px;
+        border:1px solid #afafaf;
+        font:normal 14px Arial,Helvetica,sans-serif;
+        padding:6px 0 0 0;
+    }
+    .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+        border-radius:0;
+        border:0;
+    }
     .ui-selectmenu-menu .ui-menu-item .ui-icon {
       height: 24px;
       width: 24px;
       top: 0.7em;
+      left:7px;
     }
     .ui-icon.ar {
       background: url('/img/flags/lng-ar.png') 0 0 no-repeat;
