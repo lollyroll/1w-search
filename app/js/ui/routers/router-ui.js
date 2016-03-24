@@ -13,7 +13,7 @@ define(
             },
             search: function () {
                 App.createPage({
-                    css: ['search'],
+                    css: ['search', 'jqueryui/jqueryui'],
                     view: Search,
                     urlArguments: arguments
                 });

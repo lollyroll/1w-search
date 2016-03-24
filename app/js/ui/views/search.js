@@ -7,7 +7,8 @@ define(
         'ui/views/backgrid-columns-configs',
         'text!templates/search.tpl',
         'ui/helpers/locales',
-        'ui/helpers/to-friendly-number'
+        'ui/helpers/to-friendly-number',
+        'jqueryui'
     ],
     function (App, pollsCollection, Backgrid, BackgridColumnsConfig, tpl, Languages, FriendlyNum) {
         return App.View.defaultView.extend({
@@ -17,7 +18,6 @@ define(
             events: {
                 'click .js-search': 'search',
                 'click .showPopup': 'popup',
-                'change #select-language': 'changeLocale',
                 'input #search-input': 'hidePollsList'
             },
             myCollection: {},
@@ -36,6 +36,10 @@ define(
 
                 self.initsBackgridColumnsConfig();
                 self.render();
+
+                $(document).on('click', '#select-language-menu li', function(e){
+                    self.changeLocale(e);
+                });
             },
             render: function () {
                 var self = this;
@@ -44,6 +48,7 @@ define(
                 self.$el.html(_.template(self.templates['tplSearch']));
 
                 self.showSelectLocale();
+                self.addFlagsToLocaleSelector();
             },
             showSelectLocale: function() {
                 var self = this,
@@ -63,11 +68,44 @@ define(
 
                 localesDropdown.html($options);
             },
+            addFlagsToLocaleSelector: function() {
+                $.widget( 'custom.iconselectmenu', $.ui.selectmenu, {
+                  _renderItem: function( ul, item ) {
+                    var li = $( '<li>', { text: item.label, value: item.value, class: 'lang-' + item.element.attr( 'value' ) } );
+
+                    if ( item.disabled ) {
+                      li.addClass( 'ui-state-disabled' );
+                    }
+
+                    $( '<span>', {
+                      'class': 'ui-icon ' + item.element.attr( 'value' )
+                    })
+                      .appendTo( li );
+
+                    $('#select-language-button').addClass('lang-en');
+
+                    return li.appendTo( ul );
+                  }
+                });
+
+                $( '#select-language' )
+                .iconselectmenu();
+
+
+                $( '<span>', {
+                  'class': 'ui-icon en',
+                  'id': 'buttonIcon'
+                })
+                  .prependTo( $('.ui-selectmenu-button') );
+            },
             changeLocale: function(e) {
                 var self = this;
 
-                self.locale = $(e.currentTarget).val();
-
+                $('#buttonIcon').removeClass('ui-icon '+ self.locale +'');
+                $('#select-language-button').removeClass('lang-' + self.locale);
+                self.locale = $(e.currentTarget).attr('value');
+                $('#buttonIcon').addClass('ui-icon '+ self.locale +'');
+                $('#select-language-button').addClass('lang-' + self.locale);
                 self.search();
             },
             hidePollsList: function() {

@@ -29,7 +29,7 @@
 </tpl>
 
 <tpl id="tplTaglineCell">
-    <a href="https://1worldonline.com/#!/poll/<%= cellModel.get('id') %>" target="_blank"><div class="tagline"><%= cellModel.get('tagline') %></div></a>
+    <a href="https://1worldonline.com/#!/<%= cellModel.get('locale') %>/poll/<%= cellModel.get('id') %>" target="_blank"><div class="tagline"><%= cellModel.get('tagline') %></div></a>
 </tpl>
 
 <tpl id="tplEngagementCell">

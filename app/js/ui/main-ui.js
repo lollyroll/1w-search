@@ -6,6 +6,7 @@ require.config({
         app: 'js/core/app',
         config: 'js/core/config',
         jquery: 'js/core/libs/jquery-2.2.0',
+        jqueryui: 'js/core/libs/jquery-ui/jquery-ui',
         underscore: 'js/core/libs/underscore-1.6.0',
         backbone: 'js/core/libs/backbone-amd-1.1.0',
         text: 'js/core/libs/requirejs-plugins/text-2.0.12',
