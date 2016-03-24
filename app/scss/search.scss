@@ -49,7 +49,7 @@
     .ui-icon {
         @each $locale in $LOCALES {
             &.#{$locale} {
-                background: url($img-path + 'lng-' + $locale + '.png') 0 0 no-repeat;
+                background: url($img-path + 'flags/lng-' + $locale + '.png') 0 0 no-repeat;
             }
         }
     }
