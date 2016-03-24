@@ -29,24 +29,22 @@
 </tpl>
 
 <tpl id="tplTaglineCell">
-    <a href="https://1worldonline.com/#!/poll/<%= cellModel.get('id') %>" target="_blank"><div class="tagline"><%= cellModel.get('tagline') %></div></a>
+    <a href="https://1worldonline.com/#!/<%= cellModel.get('locale') %>/poll/<%= cellModel.get('id') %>" target="_blank"><div class="tagline"><%= cellModel.get('tagline') %></div></a>
 </tpl>
 
 <tpl id="tplEngagementCell">
-    <div class="ico-views"><%= FriendlyNum(cellModel.get('totalViews'), 1) %></div>
-	<div class="ico-votes"><%= FriendlyNum(cellModel.get('totalVotes'), 1) %></div>
+    <div class="ico-views"><%= cellModel.get('totalViewsFormatted') %></div>
+	<div class="ico-votes"><%= cellModel.get('totalVotesFormatted') %></div>
 </tpl>
 
 <tpl id="tplSourceCell">
-    <!--<ol class="answers">
-        <% _.each(cellModel.get('sides'), function(sides) { %>
-        <li>
-            <%= sides.answer %>
-        </li>
-        <% }); %>
-    </ol>-->
     <div class="poll-author-avatar">
-        <img src="https://dev-web-images.s3.amazonaws.com/partner_logoedccaa95-0f28-4392-902c-0ee9d730abe4-0-120x120">
+        <% if (cellModel.get('adminObject') && cellModel.get('adminObject').thumbnailUrl) { %>
+            <img src="<%= cellModel.get('adminObject').thumbnailUrl %>">
+        <% } else %>
+        <% { %>
+            <img src="img/default-avatar-light-120x120.png">
+        <% } %>
     </div>
     <h5 class="asked-by">
             Asked by:

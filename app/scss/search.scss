@@ -1,4 +1,145 @@
+// $img-path: '/* @echo IMG_PATH */';
+
 .search {
+    #buttonIcon {
+        top: 57%;
+        right: auto;
+        left: 0.5em;
+    }
+    .textfield {
+        font: normal 14px Arial,Helvetica,sans-serif;
+    }
+    .ui-selectmenu-text {
+        padding: 0.4em 2.1em 0.4em 34px !important;
+    }
+    .ui-selectmenu-menu .ui-menu-item {
+          padding:10px 0 10px 42px;
+            font: normal 14px Arial,Helvetica,sans-serif;
+    }
+    .ui-selectmenu-menu {
+        width: 12em;
+        height: 20em;
+        line-height: 2em;
+        border: 1px solid #ccc;
+        padding: 0;
+        margin: 0;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+    .ui-selectmenu-button {
+        background:none;
+        vertical-align: middle;
+        border-radius: 0;
+        height: 45px;
+        border:1px solid #afafaf;
+        font:normal 14px Arial,Helvetica,sans-serif;
+        padding:6px 0 0 0;
+    }
+    .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+        border-radius:0;
+        border:0;
+    }
+    .ui-selectmenu-menu .ui-menu-item .ui-icon {
+      height: 24px;
+      width: 24px;
+      top: 0.7em;
+      left:7px;
+    }
+    .ui-icon.ar {
+      background: url('/img/flags/lng-ar.png') 0 0 no-repeat;
+    }
+    .ui-icon.ar {
+      background: url('/img/flags/lng-ar.png') 0 0 no-repeat;
+    }
+    .ui-icon.bn {
+      background: url('/img/flags/lng-bn.png') 0 0 no-repeat;
+    }
+    .ui-icon.cn {
+      background: url('/img/flags/lng-cn.png') 0 0 no-repeat;
+    }
+    .ui-icon.de {
+      background: url('/img/flags/lng-de.png') 0 0 no-repeat;
+    }
+    .ui-icon.el {
+      background: url('/img/flags/lng-el.png') 0 0 no-repeat;
+    }
+    .ui-icon.en {
+      background: url('/img/flags/lng-en.png') 0 0 no-repeat;
+    }
+    .ui-icon.es {
+      background: url('/img/flags/lng-es.png') 0 0 no-repeat;
+    }
+    .ui-icon.fr {
+      background: url('/img/flags/lng-fr.png') 0 0 no-repeat;
+    }
+    .ui-icon.gu {
+      background: url('/img/flags/lng-gu.png') 0 0 no-repeat;
+    }
+    .ui-icon.he {
+      background: url('/img/flags/lng-he.png') 0 0 no-repeat;
+    }
+    .ui-icon.hi {
+      background: url('/img/flags/lng-hi.png') 0 0 no-repeat;
+    }
+    .ui-icon.id {
+      background: url('/img/flags/lng-id.png') 0 0 no-repeat;
+    }
+    .ui-icon.it {
+      background: url('/img/flags/lng-it.png') 0 0 no-repeat;
+    }
+    .ui-icon.jp {
+      background: url('/img/flags/lng-jp.png') 0 0 no-repeat;
+    }
+    .ui-icon.kn {
+      background: url('/img/flags/lng-kn.png') 0 0 no-repeat;
+    }
+    .ui-icon.ko {
+      background: url('/img/flags/lng-ko.png') 0 0 no-repeat;
+    }
+    .ui-icon.ml {
+      background: url('/img/flags/lng-ml.png') 0 0 no-repeat;
+    }
+    .ui-icon.pl {
+      background: url('/img/flags/lng-pl.png') 0 0 no-repeat;
+    }
+    .ui-icon.pt {
+      background: url('/img/flags/lng-pt.png') 0 0 no-repeat;
+    }
+    .ui-icon.ru {
+      background: url('/img/flags/lng-ru.png') 0 0 no-repeat;
+    }
+    .ui-icon.sv {
+      background: url('/img/flags/lng-sv.png') 0 0 no-repeat;
+    }
+    .ui-icon.ta {
+      background: url('/img/flags/lng-ta.png') 0 0 no-repeat;
+    }
+    .ui-icon.te {
+      background: url('/img/flags/lng-te.png') 0 0 no-repeat;
+    }
+    .ui-icon.th {
+      background: url('/img/flags/lng-th.png') 0 0 no-repeat;
+    }
+    .ui-icon.tr {
+      background: url('/img/flags/lng-tr.png') 0 0 no-repeat;
+    }
+    .ui-icon.tw {
+      background: url('/img/flags/lng-tw.png') 0 0 no-repeat;
+    }
+    .ui-icon.ua {
+      background: url('/img/flags/lng-ua.png') 0 0 no-repeat;
+    }
+    .ui-icon.vi {
+      background: url('/img/flags/lng-vi.png') 0 0 no-repeat;
+    }
+    /* select with CSS avatar icons */
+    option.avatar {
+      background-repeat: no-repeat !important;
+      padding-left: 20px;
+    }
+    .avatar .ui-icon {
+      background-position: left top;
+    }
     .polls-list {
         .backgrid {
             th {
