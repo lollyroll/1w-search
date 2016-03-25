@@ -15,7 +15,7 @@ var preprocessConfig = {
     }
 };
 
-gulp.task('build', ['build-css', 'build-img', 'build-ui-min-js']);
+gulp.task('build', ['build-css', 'build-css-img', 'build-img', 'build-ui-min-js']);
 
 gulp.task('clean', function () {
     return gulp.src('./dist', { read: false })
@@ -66,6 +66,11 @@ gulp.task('build-css', ['compile-scss'], function() {
 gulp.task('build-img', function() {
     return gulp.src(['./app/img/**'])
         .pipe(gulp.dest('./dist/img'));
+});
+
+gulp.task('build-css-img', function() {
+    return gulp.src(['./app/css/jqueryui/images/**'])
+        .pipe(gulp.dest('./dist/css/images'));
 });
 
 gulp.task('build-core-min-js', function() {
