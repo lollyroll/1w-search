@@ -22,7 +22,7 @@
             <% if (cellModel.get('image') && cellModel.get('image').url) { %>
                 <img src="<%= cellModel.get('image').url + '-48x48' %>" width="50" height="50">
             <% } else { %>
-                <img src="img/dist/background-gray-6x6" width="50" height="50">
+                <img src="dist/img/background-gray-6x6" width="50" height="50">
             <% } %>
         </div>
     </a>
@@ -43,7 +43,7 @@
             <img src="<%= cellModel.get('adminObject').thumbnailUrl %>">
         <% } else %>
         <% { %>
-            <img src="img/dist/default-avatar-light-120x120.png">
+            <img src="dist/img/default-avatar-light-120x120.png">
         <% } %>
     </div>
     <h5 class="asked-by">
