@@ -17,7 +17,7 @@
 </tpl>
 
 <tpl id="tplImageCell">
-    <a href="https://1worldonline.com/#!/poll/<%= cellModel.get('id') %>" target="_blank">
+    <a href="https://1worldonline.com/#!/<%= cellModel.get('locale') %>/poll/<%= cellModel.get('id') %>" target="_blank">
         <div class="mymargin">
             <% if (cellModel.get('image') && cellModel.get('image').url) { %>
                 <img src="<%= cellModel.get('image').url + '-48x48' %>" width="50" height="50">
