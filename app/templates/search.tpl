@@ -4,7 +4,6 @@
     </div>
     <div class="container">
         <a href="https://1worldonline.com/" target="_blank"><div class="owo-logo"></div></a>
-
         <form class="wrapper" action="javascript:void(0);">
             <div class="inline-block-tmp">
                 <select id="select-language" class="textfield">&nbsp;</select>
@@ -51,8 +50,7 @@
             <span class="link">
                 <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
             </span>
-        </h5>
-
+    </h5>
 </tpl>
 
 <tpl id="tplButtonCell">
