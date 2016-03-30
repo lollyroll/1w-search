@@ -52,7 +52,7 @@ define(
             },
             showSelectLocale: function() {
                 var self = this,
-                    localesDropdown = self.$el.find('#select-language'),
+                    localesDropdown = self.$('#select-language'),
                     $options = [],
                     $option;
 
@@ -84,24 +84,24 @@ define(
                     })
                       .appendTo( li );
 
-                    self.$el.find('#select-language-button').addClass('lang-en');
+                    self.$('#select-language-button').addClass('lang-en');
 
                     return li.appendTo( ul );
                   }
                 });
 
-                self.$el.find('#select-language').iconselectmenu();
+                self.$('#select-language').iconselectmenu();
 
                 $( '<span>', {
                   'class': 'ui-icon en',
                   'id': 'buttonIcon'
                 })
-                .prependTo( self.$el.find('.ui-selectmenu-button') );
+                .prependTo( self.$('.ui-selectmenu-button') );
             },
             changeLocale: function(e) {
                 var self = this,
-                    buttonIcon = self.$el.find('#buttonIcon'),
-                    selectLanguageButton = self.$el.find('#select-language-button');
+                    buttonIcon = self.$('#buttonIcon'),
+                    selectLanguageButton = self.$('#select-language-button');
 
                 buttonIcon.removeClass('ui-icon '+ self.locale +'');
                 selectLanguageButton.removeClass('lang-' + self.locale);
@@ -113,29 +113,29 @@ define(
             hidePollsList: function(e) {
                 var self = this;
 
-                if (self.$el.find('#search-input').val().trim() === '') {
-                    self.$el.find('#polls-list').empty();
+                if (self.$('#search-input').val().trim() === '') {
+                    self.$('#polls-list').empty();
                 }
             },
             popup: function (e) {
                 var self = this,
-                    currentTarget = self.$el.find(e.currentTarget),
-                    elements = self.$el.find('.popupDiv'),
-                    trParent = self.$el.find('.active'),
+                    currentTarget = self.$(e.currentTarget),
+                    elements = self.$('.popupDiv'),
+                    trParent = self.$('.active'),
                     viewElement = currentTarget.parent().parent().find('.popupDiv'),
                     sourceColumn  = self.grid.columns.find(function(column) {
                         return column.get('name').search('source') > -1;
                     });
 
                     trParent.removeClass('active');
-                if (self.$el.find(viewElement).is(':visible')) {
-                    self.$el.find(viewElement).hide();
+                if (self.$(viewElement).is(':visible')) {
+                    self.$(viewElement).hide();
                     sourceColumn.set('renderable', true);
                 }
                 else {
                     elements.hide();
-                    self.$el.find(viewElement).show();
-                    self.$el.find(viewElement).parent().parent().addClass('active');
+                    self.$(viewElement).show();
+                    self.$(viewElement).parent().parent().addClass('active');
                     sourceColumn.set('renderable', false);
                 }
             },
@@ -152,11 +152,11 @@ define(
                 && !targetParentParentHasClassPopupDiv
                 && !targetHasClassShowPopup)
                 {
-                    self.$el.find('.popupDiv').hide();
-                    self.$el.find('.active').removeClass('active');
+                    self.$('.popupDiv').hide();
+                    self.$('.active').removeClass('active');
                 }
 
-                if(self.$el.find('.popupDiv').is(':hidden')
+                if(self.$('.popupDiv').is(':hidden')
                 && !targetHasClassPopupDiv
                 && !targetParentHasClassPopupDiv
                 && !targetParentParentHasClassPopupDiv
@@ -171,7 +171,7 @@ define(
             },
             renderGrid: function () {
                 var self = this,
-                    $pollsList = self.$el.find('#polls-list');
+                    $pollsList = self.$('#polls-list');
 
                 if (self.myCollection.length) {
                     $pollsList.html(self.grid.render().el);
@@ -180,7 +180,7 @@ define(
                     $pollsList.empty();
                 }
 
-                self.$el.find('.popupDiv').hide();
+                self.$('.popupDiv').hide();
             },
             getPolls: function(data) {
                 var self = this;
@@ -245,7 +245,7 @@ define(
             },
             search: function() {
                 var self = this,
-                    currentKeywords = self.$el.find('#search-input').val().trim();
+                    currentKeywords = self.$('#search-input').val().trim();
 
                 if (currentKeywords){
                     self.showLoader();
