@@ -52,12 +52,12 @@ define(
             },
             showSelectLocale: function() {
                 var self = this,
-                    localesDropdown = self.$('#select-language');
+                    localesDropdown = self.$('#select-language'),
+                    $options = [],
+                    $option;
 
-                var $options = [];
-
-                $.each(Languages, function(locale, localeObj){
-                    var $option = $('<option>').val(locale).text(localeObj.name);
+                $.each(Languages, function(locale, localeFullName) {
+                    $option = $('<option>').val(locale).text(localeFullName.name);
 
                     if (locale === self.locale) {
                         $option.prop('selected', true);
@@ -69,6 +69,8 @@ define(
                 localesDropdown.html($options);
             },
             addFlagsToLocaleSelector: function() {
+                var self = this;
+
                 $.widget( 'custom.iconselectmenu', $.ui.selectmenu, {
                   _renderItem: function( ul, item ) {
                     var li = $( '<li>', { text: item.label, value: item.value, class: 'lang-' + item.element.attr( 'value' ) } );
@@ -82,76 +84,83 @@ define(
                     })
                       .appendTo( li );
 
-                    $('#select-language-button').addClass('lang-en');
+                    self.$('#select-language-button').addClass('lang-en');
 
                     return li.appendTo( ul );
                   }
                 });
 
-                $( '#select-language' )
-                .iconselectmenu();
-
+                self.$('#select-language').iconselectmenu();
 
                 $( '<span>', {
                   'class': 'ui-icon en',
                   'id': 'buttonIcon'
                 })
-                  .prependTo( $('.ui-selectmenu-button') );
+                .prependTo( self.$('.ui-selectmenu-button') );
             },
             changeLocale: function(e) {
-                var self = this;
+                var self = this,
+                    buttonIcon = self.$('#buttonIcon'),
+                    selectLanguageButton = self.$('#select-language-button');
 
-                $('#buttonIcon').removeClass('ui-icon '+ self.locale +'');
-                $('#select-language-button').removeClass('lang-' + self.locale);
+                buttonIcon.removeClass('ui-icon '+ self.locale +'');
+                selectLanguageButton.removeClass('lang-' + self.locale);
                 self.locale = $(e.currentTarget).attr('value');
-                $('#buttonIcon').addClass('ui-icon '+ self.locale +'');
-                $('#select-language-button').addClass('lang-' + self.locale);
+                buttonIcon.addClass('ui-icon '+ self.locale +'');
+                selectLanguageButton.addClass('lang-' + self.locale);
                 self.search();
             },
-            hidePollsList: function() {
-                if($('#search-input').val() === '')
-                {
-                    $('#polls-list').empty();
+            hidePollsList: function(e) {
+                var self = this;
+
+                if (self.$('#search-input').val().trim() === '') {
+                    self.$('#polls-list').empty();
                 }
             },
             popup: function (e) {
-                var currentTarget = $(e.currentTarget),
-                    elements = $('.popupDiv'),
-                    trParent = $('.active'),
-                    self = this,
+                var self = this,
+                    currentTarget = self.$(e.currentTarget),
+                    elements = self.$('.popupDiv'),
+                    trParent = self.$('.active'),
                     viewElement = currentTarget.parent().parent().find('.popupDiv'),
                     sourceColumn  = self.grid.columns.find(function(column) {
                         return column.get('name').search('source') > -1;
                     });
 
-                if ($(viewElement).is(':visible')) {
-                    $(viewElement).hide();
                     trParent.removeClass('active');
+                if (self.$(viewElement).is(':visible')) {
+                    self.$(viewElement).hide();
                     sourceColumn.set('renderable', true);
                 }
                 else {
                     elements.hide();
-                    trParent.removeClass('active');
-                    $(viewElement).show();
-                    $(viewElement).parent().parent().addClass('active');
+                    self.$(viewElement).show();
+                    self.$(viewElement).parent().parent().addClass('active');
                     sourceColumn.set('renderable', false);
                 }
             },
             hidePopup: function(e) {
-                var self = this;
+                var self = this,
+                    currentTarget = $(e.target),
+                    targetHasClassShowPopup = currentTarget.hasClass('showPopup'),
+                    targetHasClassPopupDiv = currentTarget.hasClass('popupDiv'),
+                    targetParentHasClassPopupDiv = currentTarget.parent().hasClass('popupDiv'),
+                    targetParentParentHasClassPopupDiv = currentTarget.parent().parent().hasClass('popupDiv');
 
-                if (!$(e.target).hasClass('popupDiv') && !$(e.target).parent().hasClass('popupDiv')
-                && !$(e.target).parent().parent().hasClass('popupDiv')
-                && !$(e.target).hasClass('showPopup'))
+                if (!targetHasClassPopupDiv
+                && !targetParentHasClassPopupDiv
+                && !targetParentParentHasClassPopupDiv
+                && !targetHasClassShowPopup)
                 {
-                    $('.popupDiv').hide();
-                    $('.active').removeClass('active');
+                    self.$('.popupDiv').hide();
+                    self.$('.active').removeClass('active');
                 }
 
-                if($('.popupDiv').is(':hidden') && !$(e.target).hasClass('popupDiv')
-                && !$(e.target).parent().hasClass('popupDiv')
-                && !$(e.target).parent().parent().hasClass('popupDiv')
-                && !$(e.target).hasClass('showPopup'))
+                if(self.$('.popupDiv').is(':hidden')
+                && !targetHasClassPopupDiv
+                && !targetParentHasClassPopupDiv
+                && !targetParentParentHasClassPopupDiv
+                && !targetHasClassShowPopup)
                 {
                     var sourceColumn  = self.grid.columns.find(function(column) {
                         return column.get('name').search('source') > -1;
@@ -171,11 +180,10 @@ define(
                     $pollsList.empty();
                 }
 
-                $('.popupDiv').hide();
+                self.$('.popupDiv').hide();
             },
             getPolls: function(data) {
                 var self = this;
-                var locale = self.locale;
 
                 return $.ajax({
                     url: 'https://1worldonline.com/1ws/json/PollSearchListWithPager',
@@ -184,7 +192,7 @@ define(
                         minVotes: 100,
                         sortCriteria: 'mostVoted',
                         includePublicPollsOnly: true,
-                        locale: locale,
+                        locale: self.locale,
                         keywords : data.keywords,
                         pageSize: 20
                     }
@@ -237,7 +245,7 @@ define(
             },
             search: function() {
                 var self = this,
-                    currentKeywords = $('#search-input').val().trim();
+                    currentKeywords = self.$('#search-input').val().trim();
 
                 if (currentKeywords){
                     self.showLoader();

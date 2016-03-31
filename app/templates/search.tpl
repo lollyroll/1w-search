@@ -4,7 +4,6 @@
     </div>
     <div class="container">
         <a href="https://1worldonline.com/" target="_blank"><div class="owo-logo"></div></a>
-
         <form class="wrapper" action="javascript:void(0);">
             <div class="inline-block-tmp">
                 <select id="select-language" class="textfield">&nbsp;</select>
@@ -40,19 +39,18 @@
 <tpl id="tplSourceCell">
     <div class="poll-author-avatar">
         <% if (cellModel.get('adminObject') && cellModel.get('adminObject').thumbnailUrl) { %>
-            <img src="<%= cellModel.get('adminObject').thumbnailUrl %>">
-        <% } else %>
-        <% { %>
+            <img src="<%= cellModel.get('adminObject').thumbnailUrl + '-48x48' %>">
+        <% } else { %>
             <img src="dist/img/default-avatar-light-120x120.png">
         <% } %>
     </div>
     <h5 class="asked-by">
             Asked by:
+            <br>
             <span class="link">
                 <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
             </span>
-        </h5>
-
+    </h5>
 </tpl>
 
 <tpl id="tplButtonCell">

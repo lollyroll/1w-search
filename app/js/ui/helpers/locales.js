@@ -28,8 +28,8 @@ define(
             vi: { name: 'Vietnamese' },
             tr: { name: 'Turkish' },
             ar: { name: 'Arabic' },
-	    sv: { name: 'Swedish' },
-	    el: { name: 'Greek' }
+    	    sv: { name: 'Swedish' },
+    	    el: { name: 'Greek' }
         }
     }
 );
