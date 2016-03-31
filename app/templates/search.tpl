@@ -4,7 +4,6 @@
     </div>
     <div class="container">
         <a href="https://1worldonline.com/" target="_blank"><div class="owo-logo"></div></a>
-
         <form class="wrapper" action="javascript:void(0);">
             <div class="inline-block-tmp">
                 <select id="select-language" class="textfield">&nbsp;</select>
@@ -17,19 +16,19 @@
 </tpl>
 
 <tpl id="tplImageCell">
-    <a href="https://1worldonline.com/#!/poll/<%= cellModel.get('id') %>" target="_blank">
+    <a href="https://1worldonline.com/#!/<%= cellModel.get('locale') %>/poll/<%= cellModel.get('id') %>" target="_blank">
         <div class="mymargin">
             <% if (cellModel.get('image') && cellModel.get('image').url) { %>
                 <img src="<%= cellModel.get('image').url + '-48x48' %>" width="50" height="50">
             <% } else { %>
-                <img src="background-gray-6x6" width="50" height="50">
+                <img src="dist/img/background-gray-6x6" width="50" height="50">
             <% } %>
         </div>
     </a>
 </tpl>
 
 <tpl id="tplTaglineCell">
-    <a href="https://1worldonline.com/#!/poll/<%= cellModel.get('id') %>" target="_blank"><div class="tagline"><%= cellModel.get('tagline') %></div></a>
+    <a href="https://1worldonline.com/#!/<%= cellModel.get('locale') %>/poll/<%= cellModel.get('id') %>" target="_blank"><div class="tagline"><%= cellModel.get('tagline') %></div></a>
 </tpl>
 
 <tpl id="tplEngagementCell">
@@ -43,7 +42,7 @@
             <img src="<%= cellModel.get('adminObject').thumbnailUrl %>">
         <% } else %>
         <% { %>
-            <img src="img/default-avatar-light-120x120.png">
+            <img src="dist/img/default-avatar-light-120x120.png">
         <% } %>
     </div>
     <h5 class="asked-by">
@@ -51,8 +50,7 @@
             <span class="link">
                 <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
             </span>
-        </h5>
-
+    </h5>
 </tpl>
 
 <tpl id="tplButtonCell">

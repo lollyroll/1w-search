@@ -18,3 +18,5 @@ node_modules
 #dist
 
 gulpfile.js
+
+index.html

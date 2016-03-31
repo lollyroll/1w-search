@@ -27,7 +27,9 @@ define(
             th: { name: 'Thai' },
             vi: { name: 'Vietnamese' },
             tr: { name: 'Turkish' },
-            ar: { name: 'Arabic' }
+            ar: { name: 'Arabic' },
+    	    sv: { name: 'Swedish' },
+    	    el: { name: 'Greek' }
         }
     }
 );
