@@ -154,18 +154,22 @@ a, .link {
     }
     .poll-author-avatar {
         width: 30px;
-        height: 30px;
         border-radius:50px;
-        margin:0 12px 0 18px;
-        float:left;
+        display:table-cell;
         overflow:hidden;
+        vertical-align:middle;
         img {
             width:30px;
-            height:30px;
+            height:auto;
+            &:nth-child(2) {
+                display:none;
+            }
         }
     }
     .poll-author-avatar + .asked-by {
-        float:left;
-        margin-left:10px;
+        display:table-cell;
+        vertical-align:middle;
+        font-size:11px;
+        padding-left:10px;
     }
 }
