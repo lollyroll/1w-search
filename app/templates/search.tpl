@@ -49,9 +49,7 @@
     <h5 class="asked-by">
             Asked by:
             <br>
-            <span class="link">
-                <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
-            </span>
+            <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
     </h5>
 </tpl>
 
@@ -73,9 +71,7 @@
       </div>
         <h5 class="asked-by">
             Asked by:
-            <span class="link">
-                <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
-            </span>
+            <%= cellModel.get('partner') ? cellModel.get('partner').name : cellModel.get('adminObject').fullName %>
         </h5>
         <div class="info-string">
             <% if(cellModel.get('status') === "closed") { %>
