@@ -40,6 +40,8 @@
     <div class="poll-author-avatar">
         <% if (cellModel.get('adminObject') && cellModel.get('adminObject').thumbnailUrl) { %>
             <img src="<%= cellModel.get('adminObject').thumbnailUrl + '-48x48' %>">
+        <% } else if (cellModel.get('partner') && cellModel.get('partner').widgetIcon && cellModel.get('partner').widgetIcon.url) { %>
+            <img src="<%= cellModel.get('partner').widgetIcon.url %>">
         <% } else { %>
             <img src="dist/img/default-avatar-light-120x120.png">
         <% } %>
